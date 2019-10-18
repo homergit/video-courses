@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../models/user";
 
 @Component({
@@ -6,10 +6,12 @@ import {User} from "../models/user";
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss']
 })
-export class UserLoginComponent implements User {
-  id: number;
-  lastName: string;
-  firstName: string;
+export class UserLoginComponent implements OnInit {
+  mockUser: User = {
+    id: 1,
+    lastName: 'Serhey',
+    firstName: 'Ivanov'
+  };
 
   constructor() {
   }
