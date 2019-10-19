@@ -25,5 +25,6 @@ import {LoginModule} from "../features/login/login.module";
     RouterModule
   ]
 })
+
 export class SharedModule {
 }
