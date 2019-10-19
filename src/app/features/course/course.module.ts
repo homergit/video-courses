@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+
 import {SearchComponent} from './search/search.component';
 import {AddCourseComponent} from './add-course/add-course.component';
 import {ListOfCoursesComponent} from './list-of-courses/list-of-courses.component';
