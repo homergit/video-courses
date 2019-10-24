@@ -2,20 +2,21 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {SearchComponent} from './search/search.component';
-import {AddCourseComponent} from './add-course/add-course.component';
-import {ListOfCoursesComponent} from './list-of-courses/list-of-courses.component';
 import {CoursesSectionComponent} from './courses-section/courses-section.component';
+import {PipeModule} from '../../core/pipe/pipe.module';
+import { CourseTileComponent } from './course-tile/course-tile.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
-  declarations: [SearchComponent, AddCourseComponent, ListOfCoursesComponent, CoursesSectionComponent],
+  declarations: [SearchComponent, CoursesSectionComponent, CourseTileComponent],
   exports: [
     SearchComponent,
-    AddCourseComponent,
-    ListOfCoursesComponent,
     CoursesSectionComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    PipeModule,
+    FormsModule
   ]
 })
 export class CourseModule {
