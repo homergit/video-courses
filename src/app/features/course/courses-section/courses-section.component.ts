@@ -1,14 +1,4 @@
-import {
-  Component,
-  OnChanges,
-  OnInit,
-  DoCheck,
-  AfterContentInit,
-  AfterContentChecked,
-  AfterViewInit,
-  AfterViewChecked,
-  OnDestroy
-} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Course} from '../../../core/models/course';
 
 @Component({
@@ -16,20 +6,13 @@ import {Course} from '../../../core/models/course';
   templateUrl: './courses-section.component.html',
   styleUrls: ['./courses-section.component.scss']
 })
-export class CoursesSectionComponent implements OnChanges,
-                                                OnInit,
-                                                DoCheck,
-                                                AfterContentInit,
-                                                AfterContentChecked,
-                                                AfterViewInit,
-                                                AfterViewChecked,
-                                                OnDestroy {
-  coursesToDisplay: Array<Course> = [];
+export class CoursesSectionComponent implements OnInit {
+  coursesToDisplay: Course[] = [];
   numberOfCoursesToLoad = 5;
   shouldShowLoadMore = true;
   term: string;
-  mockCourses: Array<Course>;
-  dataExample: Array<Course> = [
+  mockCourses: Course[];
+  dataExample: Course[] = [
     {
       id: 1,
       title: 'Video Course 1. one',
@@ -144,45 +127,14 @@ export class CoursesSectionComponent implements OnChanges,
 
 
   constructor() {
-    console.log('**CoursesSection - constructor**');
   }
 
   ngOnInit() {
     this.mockCourses = this.dataExample;
     this.loadCourses();
-    console.log('**CoursesSection - ngOnInit**');
-  }
-
-  ngOnChanges() {
-    console.log('**CoursesSection - ngOnChanges**');
-  }
-
-  ngDoCheck() {
-    console.log('**CoursesSection - ngDoCheck**');
-  }
-
-  ngAfterContentInit() {
-    console.log('**CoursesSection - ngAfterContentInit**');
-  }
-
-  ngAfterContentChecked() {
-    console.log('**CoursesSection - ngAfterContentChecked**');
-  }
-
-  ngAfterViewInit() {
-    console.log('**CoursesSection - ngAfterViewInit**');
-  }
-
-  ngAfterViewChecked() {
-    console.log('**CoursesSection - ngAfterViewChecked**');
-  }
-
-  ngOnDestroy() {
-    console.log('**CoursesSection - ngOnDestroy**');
   }
 
   delete(deletedCourseId: number) {
-    console.log('deletedCourseId: ', deletedCourseId);
     this.coursesToDisplay = this.coursesToDisplay.filter((course) => course.id !== deletedCourseId);
   }
 
