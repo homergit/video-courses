@@ -6,7 +6,7 @@ import {Course} from '../models/course';
 })
 
 export class FilterPipe implements PipeTransform {
-  transform(data: Array<Course>, term: string): Array<Course> {
+  transform(data: Course[], term: string): Course[] {
     if (!data) {
       return [];
     }
@@ -14,6 +14,10 @@ export class FilterPipe implements PipeTransform {
       return data;
     }
 
-    return data.filter((item: Course) => JSON.stringify(item).toLowerCase().includes(term.toLowerCase()));
+    return data.filter((item: Course) => {
+      return JSON.stringify(item)
+                 .toLowerCase().trim()
+                 .includes(term.toLowerCase().trim());
+    });
   }
 }
