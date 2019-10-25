@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Course} from '../../../core/models/course';
+import {FilterPipe} from '../../../core/pipe/filter.pipe';
 
 @Component({
   selector: 'app-section',
@@ -11,6 +12,7 @@ export class CoursesSectionComponent implements OnInit {
   numberOfCoursesToLoad = 5;
   shouldShowLoadMore = true;
   term: string;
+  filterPipe = new FilterPipe();
   mockCourses: Course[];
   dataExample: Course[] = [
     {
@@ -147,5 +149,6 @@ export class CoursesSectionComponent implements OnInit {
 
   filterData(term: string) {
     this.term = term;
+    this.shouldShowLoadMore = this.numberOfCoursesToLoad <= this.filterPipe.transform(this.mockCourses, term).length;
   }
 }
