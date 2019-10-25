@@ -1,0 +1,26 @@
+<div class="course-tile" >
+  <div class="course-tile__content">
+    <h2 class="course-tile__title">{{course.title}}</h2>
+    <p class="course-tile__information">
+      <img class="course-tile__icon" alt="icon" src="../../../../assets/images/ic-time.svg">
+      {{ course.duration | hoursMinutes }}
+    </p>
+    <p class="course-tile__information">
+      <img class="course-tile__icon" alt="icon" src="../../../../assets/images/ic-calendar.svg">
+      {{course.creationDate | date }}
+    </p>
+    <p class="course-tile__description">
+      {{course.description}}
+    </p>
+  </div>
+  <div class="course-tile__actions">
+    <button class="course-tile__button">
+      <img class="course-tile__button-icon" alt="icon" src="../../../../assets/images/ic-pencil.svg">
+      Edit
+    </button>
+    <button class="course-tile__button" (click)="deleteRequest()">
+      <img class="course-tile__button-icon" alt="icon" src="../../../../assets/images/ic-bin.svg">
+      Delete
+    </button>
+  </div>
+</div>
