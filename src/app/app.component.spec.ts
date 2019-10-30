@@ -1,15 +1,32 @@
 import {async, TestBed} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
+
 import {AppComponent} from './app.component';
+import {BreadcrumbComponent} from './features/course/breadcrumb/breadcrumb.component';
+import {SearchComponent} from './features/course/search/search.component';
+import {CourseTileComponent} from './features/course/course-tile/course-tile.component';
+import {CoursesSectionComponent} from './features/course/courses-section/courses-section.component';
+import {HeaderComponent} from './shared/header/header.component';
+import {FooterComponent} from './shared/footer/footer.component';
+import {PipeModule} from './core/pipe/pipe.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        FormsModule,
+        PipeModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        BreadcrumbComponent,
+        SearchComponent,
+        CourseTileComponent,
+        CoursesSectionComponent,
+        HeaderComponent,
+        FooterComponent
       ],
     }).compileComponents();
   }));
@@ -18,18 +35,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'video-course'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('video-course');
-  });
-
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to video-course!');
   });
 });
