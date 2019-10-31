@@ -1,17 +1,12 @@
 import { FilterPipe } from './filter.pipe';
 
 describe('FilterPipe', () => {
-  it('create an instance', () => {
-    const pipe = new FilterPipe();
-    expect(pipe).toBeTruthy();
-  });
-
-  it('return empty array if no data entered', () => {
+  it('should return empty array if no data entered', () => {
     const pipe = new FilterPipe();
     expect(pipe.transform(null, 'qwe')).toEqual([]);
   });
 
-  it('return filtered array if no data entered', () => {
+  it('should return filtered array if data entered', () => {
     const coursesToDisplay = [
       {
         id: 1,

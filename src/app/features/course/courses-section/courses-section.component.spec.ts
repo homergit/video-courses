@@ -32,11 +32,7 @@ describe('SectionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('filterData should set a new term and set a new value for shouldShowLoadMore', () => {
+  it('should set a new term and value for shouldShowLoadMore', () => {
     component.mockCourses = [
       {
         id: 1,
@@ -59,7 +55,7 @@ describe('SectionComponent', () => {
     expect(component.shouldShowLoadMore).toEqual(false);
   });
 
-  it('delete should filter data by id', () => {
+  it('should filter data by id', () => {
     component.coursesToDisplay = [
       {
         id: 1,

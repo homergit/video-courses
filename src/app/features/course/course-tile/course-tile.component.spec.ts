@@ -29,11 +29,7 @@ describe('CourseTileComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('search() should call filterData.emit(term)', () => {
+  it('should emit data to parent component', () => {
     spyOn(component.delete, 'emit');
     component.deleteRequest();
 

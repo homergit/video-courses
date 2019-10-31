@@ -21,11 +21,7 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('search() should be called', () => {
+  it('should call search method', () => {
     spyOn(component, 'search');
 
     const button = fixture.debugElement.nativeElement.querySelector('.search__button');
@@ -33,7 +29,7 @@ describe('SearchComponent', () => {
     expect(component.search).toHaveBeenCalled();
   });
 
-  it('search() should call filterData.emit(term)', () => {
+  it('should emit data to parent component', () => {
     component.term = 'hello';
     spyOn(component.filterData, 'emit');
 
