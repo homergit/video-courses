@@ -1,3 +1,4 @@
+import {FormsModule} from '@angular/forms';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SearchComponent} from './search.component';
@@ -8,7 +9,8 @@ describe('SearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchComponent]
+      declarations: [SearchComponent],
+      imports: [FormsModule]
     })
       .compileComponents();
   }));
@@ -19,7 +21,24 @@ describe('SearchComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should call search method', () => {
+    spyOn(component, 'search');
+
+    const button = fixture.debugElement.nativeElement.querySelector('.search__button');
+    button.click();
+    expect(component.search).toHaveBeenCalled();
+  });
+
+  it('should emit data to parent component', () => {
+    component.term = 'hello';
+    spyOn(component.filterData, 'emit');
+
+    const nativeElement = fixture.nativeElement;
+    const button = nativeElement.querySelector('.search__button');
+    button.dispatchEvent(new Event('click'));
+
+    fixture.detectChanges();
+
+    expect(component.filterData.emit).toHaveBeenCalledWith('hello');
   });
 });

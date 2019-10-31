@@ -19,7 +19,11 @@ describe('UserLoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create mock user', () => {
+    expect(component.mockUser).toEqual({
+      id: 1,
+      lastName: 'Serhey',
+      firstName: 'Ivanov'
+    });
   });
 });
