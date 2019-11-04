@@ -8,7 +8,8 @@
     flex-direction: column;
   }
 
-  &__load-more {
+  &__load-more,
+  &__add-course-tile {
     display: flex;
     margin: 10px 0;
     padding: 24px;
@@ -26,6 +27,11 @@
     font-size: 12px;
     text-decoration: underline;
     color: #577ce6;
+  }
+
+  &__add-course-tile {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 24px;
   }
 
   .add-course {

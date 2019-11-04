@@ -9,7 +9,7 @@ export class HoursMinutesPipe implements PipeTransform {
     let formatted = '';
     const hours = Math.floor(minutes / 60);
     const min = Math.floor(minutes) % 60;
-    formatted += `${hours}h ${min}min`;
+    formatted += hours ? `${hours}h ${min}min` : `${min}min` ;
 
     return formatted;
   }
