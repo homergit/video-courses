@@ -13,14 +13,16 @@ describe('FilterPipe', () => {
         title: 'Title',
         duration: 123,
         creationDate: new Date(),
-        description: 'Hello'
+        description: 'Hello',
+        isTopRated: false
       },
       {
         id: 2,
         title: 'Title2',
         duration: 123,
         creationDate: new Date(),
-        description: 'Text'
+        description: 'Text',
+        isTopRated: false
       }
     ];
     const filteredCourses = [
@@ -29,7 +31,8 @@ describe('FilterPipe', () => {
         title: 'Title',
         duration: 123,
         creationDate: new Date(),
-        description: 'Hello'
+        description: 'Hello',
+        isTopRated: false
       }
     ];
     const pipe = new FilterPipe();

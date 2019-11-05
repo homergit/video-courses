@@ -1,11 +1,12 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CoursesSectionComponent} from './courses-section.component';
-import {PipeModule} from '../../../core/pipe/pipe.module';
+import {PipeModule} from '../../../core/pipes/pipe.module';
 import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
 import {SearchComponent} from '../search/search.component';
 import {CourseTileComponent} from '../course-tile/course-tile.component';
 import {FormsModule} from '@angular/forms';
+import {DirectiveModule} from '../../../core/directives/directive.module';
 
 
 describe('SectionComponent', () => {
@@ -21,7 +22,11 @@ describe('SectionComponent', () => {
         CourseTileComponent,
         CoursesSectionComponent,
       ],
-      imports: [PipeModule, FormsModule],
+      imports: [
+        PipeModule,
+        FormsModule,
+        DirectiveModule
+      ],
     })
       .compileComponents();
   }));
@@ -39,14 +44,16 @@ describe('SectionComponent', () => {
         title: 'Title',
         duration: 123,
         creationDate: new Date(),
-        description: 'Hello'
+        description: 'Hello',
+        isTopRated: true
       },
       {
         id: 2,
         title: 'Title2',
         duration: 123,
         creationDate: new Date(),
-        description: 'Text'
+        description: 'Text',
+        isTopRated: true
       }
     ];
 
@@ -62,14 +69,16 @@ describe('SectionComponent', () => {
         title: 'Title',
         duration: 123,
         creationDate: new Date(2019, 10, 29, 1, 10),
-        description: 'Hello'
+        description: 'Hello',
+        isTopRated: true
       },
       {
         id: 2,
         title: 'Title2',
         duration: 123,
         creationDate: new Date(2019, 10, 29, 1, 10),
-        description: 'Text'
+        description: 'Text',
+        isTopRated: true
       }
     ];
 
@@ -79,7 +88,8 @@ describe('SectionComponent', () => {
       title: 'Title2',
       duration: 123,
       creationDate: new Date(2019, 10, 29, 1, 10),
-      description: 'Text'
+      description: 'Text',
+      isTopRated: true
     }]);
   });
 });

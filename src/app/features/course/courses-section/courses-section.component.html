@@ -9,7 +9,7 @@
 
   <div class="course-section__list-of-courses">
     <app-course-tile
-      *ngFor="let course of coursesToDisplay | filter:term"
+      *ngFor="let course of coursesToDisplay | filter:term  | orderBy:'creationDate'"
       [course]="course"
       (delete)="delete($event)"
     ></app-course-tile>
@@ -18,6 +18,9 @@
       <button class="course-section__load-more-button" (click)="loadCourses()">
         LOAD MORE
       </button>
+    </div>
+    <div class="course-section__add-course-tile" *ngIf="!coursesToDisplay.length && !shouldShowLoadMore">
+      NO DATA. FEEL FREE TO ADD NEW COURSE
     </div>
   </div>
 </section>

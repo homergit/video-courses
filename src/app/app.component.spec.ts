@@ -9,7 +9,8 @@ import {CourseTileComponent} from './features/course/course-tile/course-tile.com
 import {CoursesSectionComponent} from './features/course/courses-section/courses-section.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {FooterComponent} from './shared/footer/footer.component';
-import {PipeModule} from './core/pipe/pipe.module';
+import {PipeModule} from './core/pipes/pipe.module';
+import {DirectiveModule} from './core/directives/directive.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -17,7 +18,8 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         FormsModule,
-        PipeModule
+        PipeModule,
+        DirectiveModule
       ],
       declarations: [
         AppComponent,

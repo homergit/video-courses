@@ -6,7 +6,8 @@ import {AppComponent} from './app.component';
 
 import {CourseModule} from './features/course/course.module';
 import {SharedModule} from './shared/shared.module';
-import {PipeModule} from './core/pipe/pipe.module';
+import {PipeModule} from './core/pipes/pipe.module';
+import {DirectiveModule} from './core/directives/directive.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {PipeModule} from './core/pipe/pipe.module';
     AppRoutingModule,
     CourseModule,
     SharedModule,
-    PipeModule
+    PipeModule,
+    DirectiveModule
   ],
   providers: [],
   bootstrap: [AppComponent]
