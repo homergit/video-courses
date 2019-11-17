@@ -8,7 +8,7 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 import {CourseModule} from '../features/course/course.module';
 import {LoginModule} from '../features/login/login.module';
-import { DialogComponent } from './dialog/dialog.component';
+import {DialogComponent} from './dialog/dialog.component';
 import {MatDialogModule, MatIconModule} from "@angular/material";
 
 

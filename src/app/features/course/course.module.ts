@@ -12,7 +12,6 @@ import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
 import {DirectiveModule} from '../../core/directives/directive.module';
 import {DialogComponent} from "../../shared/dialog/dialog.component";
 
-
 @NgModule({
   declarations: [SearchComponent, CoursesSectionComponent, CourseTileComponent, BreadcrumbComponent],
   exports: [
