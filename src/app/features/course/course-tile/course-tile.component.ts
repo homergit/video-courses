@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Course} from '../../../core/models/course';
+import {Course, DeletedItem} from '../../../core/models/course';
 
 @Component({
   selector: 'app-course-tile',
@@ -8,12 +8,16 @@ import {Course} from '../../../core/models/course';
 })
 export class CourseTileComponent {
   @Input() course: Course;
-  @Output() delete = new EventEmitter<number>();
+  @Output() delete = new EventEmitter<DeletedItem>();
 
   constructor() {
   }
 
   deleteRequest() {
-    this.delete.emit(this.course.id);
+    const deletedItem = {
+      id: this.course.id,
+      title: this.course.title
+    };
+    this.delete.emit(deletedItem);
   }
 }

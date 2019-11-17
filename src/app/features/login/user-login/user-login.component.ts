@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from "../../../core/models/user";
+import {AuthorizationService} from "../../../core/services/authorization.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-login',
@@ -7,15 +10,29 @@ import {User} from "../../../core/models/user";
   styleUrls: ['./user-login.component.scss']
 })
 export class UserLoginComponent implements OnInit {
-  mockUser: User = {
-    id: 1,
-    lastName: 'Serhey',
-    firstName: 'Ivanov'
-  };
+  loginForm: FormGroup;
+  private name: string;
+  private pass: string;
 
-  constructor() {
-  }
+  constructor(
+    private loginService: AuthorizationService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
+
+  login() {
+    console.log('this.name, this.pass', this.name, this.pass)
+    this.loginService.login(this.name, this.pass);
+    this.router.navigate(['/courses']);
   }
 }

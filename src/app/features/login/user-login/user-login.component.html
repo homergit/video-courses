@@ -1,1 +1,26 @@
-<p>user-login works!</p>
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="login" class="login">
+      <h2 class="login__title">Login</h2>
+      <div class="form-group">
+        <label for="username" class="login__label">Username</label>
+        <input type="text" [(ngModel)]="name" formControlName="username" class="login__input" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="login__label">Password</label>
+        <input type="password" [(ngModel)]="pass" formControlName="password" class="login__input" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+      </div>
+      <div class="login__actions">
+        <a routerLink="/register" class="login__recovery">Forgot password?</a>
+        <button [disabled]="!name || !pass" (click)="login()" class="login__button">
+          <span *ngIf="loading" class="spinner-border"></span>
+          Login
+        </button>
+      </div>
+    </form>      
+</div>
