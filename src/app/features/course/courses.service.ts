@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
-import {Course} from "../models/course";
+//import {Injectable} from '@angular/core';
+import {Course} from "../../core/models/course";
+// import {CourseModule} from './course.module';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class HttpService {
+// @Injectable({
+//   providedIn: CourseModule
+// })
+
+export class CoursesService {
 
   mockData: Course[] = [
     {

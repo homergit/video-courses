@@ -1,15 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthorizationService} from 'src/app/core/services/authorization.service';
+import {Router, NavigationEnd} from '@angular/router';
+import {AuthorizationService} from 'src/app/features/login/authorization.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  providers: [AuthorizationService]
 })
 export class HeaderComponent implements OnInit {
-  isAuthorized = false; 
+  isAuthorized: boolean;
 
-  constructor(private authService: AuthorizationService) {
+  constructor(private authService: AuthorizationService, private router: Router) {
+    router.events.subscribe((val) => {
+      this.isAuthorized = this.authService.isAuthenicated(); 
+    });
   }
 
   ngOnInit() {
@@ -20,5 +25,4 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.isAuthorized = false;
   }
-
 }

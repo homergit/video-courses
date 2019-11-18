@@ -4,13 +4,14 @@ import {MatDialog} from '@angular/material/dialog';
 import {Course, DeletedItem} from '../../../core/models/course';
 import {FilterPipe} from '../../../core/pipes/filter.pipe';
 import {OrderByPipe} from '../../../core/pipes/order-by.pipe';
-import {HttpService} from "../../../core/services/http.service";
+import {CoursesService} from "../courses.service";
 import {DialogComponent} from "../../../shared/dialog/dialog.component";
 
 @Component({
   selector: 'app-section',
   templateUrl: './courses-section.component.html',
-  styleUrls: ['./courses-section.component.scss']
+  styleUrls: ['./courses-section.component.scss'],
+  providers: [CoursesService]
 })
 export class CoursesSectionComponent implements OnInit {
   coursesToDisplay: Course[] = [];
@@ -22,12 +23,12 @@ export class CoursesSectionComponent implements OnInit {
   courses: Course[];
 
   constructor(
-    private httpService: HttpService,
+    private coursesService: CoursesService,
     public dialog: MatDialog
   ){}
 
   ngOnInit() {
-    this.courses = this.orderByPipe.transform(this.httpService.getList());
+    this.courses = this.orderByPipe.transform(this.coursesService.getList());
     this.loadCourses();
   }
 
@@ -40,7 +41,7 @@ export class CoursesSectionComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.coursesToDisplay = this.httpService.removeItem(course.id);
+        this.coursesToDisplay = this.coursesService.removeItem(course.id);
       }
     });
   }

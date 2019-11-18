@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from "../../../core/models/user";
-import {AuthorizationService} from "../../../core/services/authorization.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {User} from "../../../core/models/user";
+import {AuthorizationService} from '../authorization.service';
 
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.scss']
+  styleUrls: ['./user-login.component.scss'],
+  providers: [AuthorizationService]
 })
 export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
