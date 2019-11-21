@@ -8,19 +8,24 @@ import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 import {CourseModule} from '../features/course/course.module';
 import {LoginModule} from '../features/login/login.module';
+import {DialogComponent} from './dialog/dialog.component';
+import {MatDialogModule, MatIconModule} from "@angular/material";
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
+  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent, DialogComponent],
   exports: [
     HeaderComponent,
     FooterComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
     CourseModule,
     LoginModule,
-    RouterModule
+    RouterModule,
+    MatDialogModule,
+    MatIconModule,
   ]
 })
 

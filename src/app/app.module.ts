@@ -8,6 +8,7 @@ import {CourseModule} from './features/course/course.module';
 import {SharedModule} from './shared/shared.module';
 import {PipeModule} from './core/pipes/pipe.module';
 import {DirectiveModule} from './core/directives/directive.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {DirectiveModule} from './core/directives/directive.module';
     CourseModule,
     SharedModule,
     PipeModule,
-    DirectiveModule
+    DirectiveModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

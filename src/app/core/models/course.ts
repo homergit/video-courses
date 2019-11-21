@@ -6,3 +6,8 @@ export interface Course {
   description: string;
   isTopRated: boolean;
 }
+
+export interface DeletedItem {
+  id: number;
+  title: string;
+}
