@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
-import {AuthorizationService} from 'src/app/features/login/authorization.service';
+import {AuthorizationService} from 'src/app/core/services/authorization.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   isAuthorized: boolean;
 
   constructor(private authService: AuthorizationService, private router: Router) {
-    router.events.subscribe((val) => {
+    router.events.subscribe(() => {
       this.isAuthorized = this.authService.isAuthenicated(); 
     });
   }

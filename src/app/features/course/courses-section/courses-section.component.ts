@@ -11,7 +11,6 @@ import {DialogComponent} from "../../../shared/dialog/dialog.component";
   selector: 'app-section',
   templateUrl: './courses-section.component.html',
   styleUrls: ['./courses-section.component.scss'],
-  providers: [CoursesService]
 })
 export class CoursesSectionComponent implements OnInit {
   coursesToDisplay: Course[] = [];

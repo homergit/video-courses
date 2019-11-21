@@ -11,6 +11,7 @@ import {CourseTileComponent} from './course-tile/course-tile.component';
 import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
 import {DirectiveModule} from '../../core/directives/directive.module';
 import {DialogComponent} from "../../shared/dialog/dialog.component";
+import {CoursesService} from "./courses.service";
 
 @NgModule({
   declarations: [SearchComponent, CoursesSectionComponent, CourseTileComponent, BreadcrumbComponent],
@@ -25,7 +26,8 @@ import {DialogComponent} from "../../shared/dialog/dialog.component";
     DirectiveModule,
     MatDialogModule
   ],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent],
+  providers: [CoursesService],
 })
 export class CourseModule {
 }

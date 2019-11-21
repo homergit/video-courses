@@ -133,25 +133,18 @@ export class CoursesService {
   }
 
   createCourse() {
-    console.log('createCourse, id:');
+    console.log('createCourse');
   }
 
   getItem(id: number) {
-    console.log('getItem, id:');
+    console.log('getItem, id:', id);
   }
 
   updateItem(id: number) {
-    console.log('updateItem, id:');
+    console.log('updateItem, id:', id);
   }
 
-  removeItem(id: number) {
-    let i = this.mockData.length;
-
-    while(i--){
-      if(this.mockData[i] && this.mockData[i].id === id){
-        this.mockData.splice(i,1);
-      }
-    }
-    return this.mockData;
+  removeItem(id: number): Course[] {
+    return this.mockData.filter(item => item.id !== id);
   }
 }
