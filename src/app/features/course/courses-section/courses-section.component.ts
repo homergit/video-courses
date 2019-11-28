@@ -1,29 +1,32 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {Course, DeletedItem} from '../../../core/models/course';
 import {FilterPipe} from '../../../core/pipes/filter.pipe';
 import {OrderByPipe} from '../../../core/pipes/order-by.pipe';
-import {CoursesService} from "../courses.service";
-import {DialogComponent} from "../../../shared/dialog/dialog.component";
+import {CoursesService} from '../courses.service';
+import {DialogComponent} from '../../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-section',
   templateUrl: './courses-section.component.html',
   styleUrls: ['./courses-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesSectionComponent implements OnInit {
   coursesToDisplay: Course[] = [];
-  numberOfCoursesToLoad = 5;
+  numberOfCoursesToLoad = 0;
   shouldShowLoadMore = true;
   term: string;
   orderByPipe = new OrderByPipe();
   filterPipe = new FilterPipe();
   courses: Course[];
+  dialogRef: any;
 
   constructor(
     private coursesService: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ){}
 
   ngOnInit() {
@@ -32,28 +35,34 @@ export class CoursesSectionComponent implements OnInit {
   }
 
   delete(course: DeletedItem) {
-    const dialogRef = this.dialog.open(DialogComponent, {
+    this.dialogRef = this.dialog.open(DialogComponent, {
       data: {
         text: course.title
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.coursesToDisplay = this.coursesService.removeItem(course.id);
+        this.courses = this.coursesService.removeItem(course.id);
+        this.coursesToDisplay = this.filterPipe.transform(this.courses, this.term).slice(0, this.numberOfCoursesToLoad);
+        this.cdr.detectChanges();
       }
     });
   }
 
   loadCourses() {
-    const loadedCourses = this.courses.slice(this.numberOfCoursesToLoad - 5, this.numberOfCoursesToLoad);
+    const loadedCourses = this.courses.slice(this.numberOfCoursesToLoad, this.numberOfCoursesToLoad + 5);
+    this.numberOfCoursesToLoad += 5;
+
     this.coursesToDisplay = this.coursesToDisplay.concat(loadedCourses);
     this.shouldShowLoadMore = this.numberOfCoursesToLoad <= this.courses.length;
-    this.numberOfCoursesToLoad += 5;
   }
 
   filterData(term: string) {
+    const filteredCourses = this.filterPipe.transform(this.courses, term);
     this.term = term;
-    this.shouldShowLoadMore = this.numberOfCoursesToLoad <= this.filterPipe.transform(this.courses, term).length;
+
+    this.shouldShowLoadMore = this.numberOfCoursesToLoad <= filteredCourses.length;
+    this.coursesToDisplay = filteredCourses.slice(0, this.numberOfCoursesToLoad);
   }
 }

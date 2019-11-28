@@ -39,6 +39,6 @@ describe('CourseTileComponent', () => {
     spyOn(component.delete, 'emit');
     component.deleteRequest();
 
-    expect(component.delete.emit).toHaveBeenCalledWith(1);
+    expect(component.delete.emit).toHaveBeenCalledWith(Object({ id: 1, title: 'Title' }));
   });
 });

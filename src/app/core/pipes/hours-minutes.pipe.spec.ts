@@ -10,4 +10,10 @@ describe('HoursMinutesPipe', () => {
     const pipe = new HoursMinutesPipe();
     expect(pipe.transform(40)).toEqual('40min');
   });
+
+  it('should return empty string', () => {
+    const pipe = new HoursMinutesPipe();
+    expect(pipe.transform(0)).toEqual('');
+    expect(pipe.transform(null)).toEqual('');
+  });
 });

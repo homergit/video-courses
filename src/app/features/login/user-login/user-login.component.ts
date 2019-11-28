@@ -1,19 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {User} from "../../../core/models/user";
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {User} from '../../../core/models/user';
 import {AuthorizationService} from '../../../core/services/authorization.service';
 
 @Component({
   selector: 'app-user-login',
   templateUrl: './user-login.component.html',
   styleUrls: ['./user-login.component.scss'],
-  providers: [AuthorizationService]
+  providers: [AuthorizationService],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
-  private name: string;
-  private pass: string;
+  name: string;
+  pass: string;
 
   constructor(
     private loginService: AuthorizationService,
@@ -28,7 +29,6 @@ export class UserLoginComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
   login() {

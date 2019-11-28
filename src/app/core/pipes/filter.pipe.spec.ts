@@ -3,7 +3,16 @@ import { FilterPipe } from './filter.pipe';
 describe('FilterPipe', () => {
   it('should return empty array if no data entered', () => {
     const pipe = new FilterPipe();
+    let data = [{
+      id: 1,
+      title: 'Title',
+      duration: 123,
+      creationDate: new Date(),
+      description: 'Hello',
+      isTopRated: false
+    }];
     expect(pipe.transform(null, 'qwe')).toEqual([]);
+    expect(pipe.transform(data, null)).toEqual(data);
   });
 
   it('should return filtered array if data entered', () => {

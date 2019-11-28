@@ -1,19 +1,25 @@
-import {Component, OnInit} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthorizationService} from 'src/app/core/services/authorization.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  providers: [AuthorizationService]
+  providers: [AuthorizationService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   isAuthorized: boolean;
 
-  constructor(private authService: AuthorizationService, private router: Router) {
+  constructor(
+    private authService: AuthorizationService, 
+    private router: Router,
+    private cdr: ChangeDetectorRef
+    ) {
     router.events.subscribe(() => {
       this.isAuthorized = this.authService.isAuthenicated(); 
+      this.cdr.detectChanges();
     });
   }
 

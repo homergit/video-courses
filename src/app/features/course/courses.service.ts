@@ -1,4 +1,4 @@
-import {Course} from "../../core/models/course";
+import {Course} from '../../core/models/course';
 
 export class CoursesService {
 
@@ -132,8 +132,8 @@ export class CoursesService {
     return this.mockData;
   }
 
-  createCourse() {
-    console.log('createCourse');
+  createCourse(item: Course) {
+    this.mockData.push(item);
   }
 
   getItem(id: number) {
@@ -145,6 +145,7 @@ export class CoursesService {
   }
 
   removeItem(id: number): Course[] {
-    return this.mockData.filter(item => item.id !== id);
+    this.mockData = this.mockData.filter(item => item.id !== id);
+    return this.mockData;
   }
 }
