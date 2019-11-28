@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {MatDialogModule} from "@angular/material";
+import {RouterModule} from '@angular/router';
 
 import {PipeModule} from '../../core/pipes/pipe.module';
 
@@ -24,7 +25,8 @@ import {CoursesService} from "./courses.service";
     PipeModule,
     FormsModule,
     DirectiveModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule
   ],
   entryComponents: [DialogComponent],
   providers: [CoursesService],

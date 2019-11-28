@@ -1,0 +1,15 @@
+<label for="duration" class="duration__label" [formGroup]="controlContainer.control">Duration
+  <br>
+  <input
+    type="text"
+    id="duration"
+    name="duration"
+    formControlName="duration"
+    class="duration__input duration__input_small"
+    (keyup)="handleChange($event)"
+  />
+
+  <p class="duration__formatted-value">
+    {{ inputValue | hoursMinutes }}
+  </p>
+</label>

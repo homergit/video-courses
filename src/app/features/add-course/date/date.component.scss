@@ -1,0 +1,23 @@
+.date {
+  &__label {
+    display: block;
+    font-family: SourceSansPro, serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #525462;
+  }
+
+  &__input {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 36px;
+    border-radius: 3px;
+    border: solid 1px #d9dbe3;
+    background-color: #ffffff;
+
+    &_small {
+      width: 35%;
+    }
+  }
+}

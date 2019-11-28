@@ -10,13 +10,11 @@ export class AuthorizationService {
   login(name: string, pass: string) {
     localStorage.setItem('personalData-name', name);
     localStorage.setItem('personalData-pass', pass);
-    console.log('login', name);
   }
 
   logout() {
     localStorage.removeItem('personalData-name');
     localStorage.removeItem('personalData-pass');
-    console.log('logout');
   }
 
   isAuthenicated(): boolean {
@@ -25,9 +23,7 @@ export class AuthorizationService {
   }
 
   getUserInfo(): string[] {
-    return [
-      JSON.parse(localStorage.getItem('personalData-name')),
-      JSON.parse(localStorage.getItem('personalData-pass'))
-    ]
+    const userInfo = [localStorage.getItem('personalData-name'), localStorage.getItem('personalData-pass')];
+    return userInfo;
   }
 }

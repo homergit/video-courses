@@ -6,9 +6,12 @@ import {AppComponent} from './app.component';
 
 import {CourseModule} from './features/course/course.module';
 import {SharedModule} from './shared/shared.module';
+import {AddCourseModule} from './features/add-course/add-course.module';
 import {PipeModule} from './core/pipes/pipe.module';
 import {DirectiveModule} from './core/directives/directive.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {MatIconModule, MatDialogModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -19,9 +22,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule,
     CourseModule,
     SharedModule,
+    AddCourseModule,
     PipeModule,
     DirectiveModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
