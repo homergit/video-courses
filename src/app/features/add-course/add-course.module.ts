@@ -16,7 +16,6 @@ import {PipeModule} from '../../core/pipes/pipe.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule, 
-    FormsModule,
     PipeModule
   ]
 })

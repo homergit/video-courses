@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
-import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
-import {Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 
-import {Course} from "../../../core/models/course";
-import {CoursesService} from "../../course/courses.service";
+import {Course} from '../../../core/models/course';
+import {CoursesService} from '../../course/courses.service';
 
 @Component({
   selector: 'app-add-course-window',

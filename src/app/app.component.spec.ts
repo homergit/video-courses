@@ -20,7 +20,7 @@ describe('AppComponent', () => {
         FormsModule,
         PipeModule,
         DirectiveModule,
-        ReactiveFormsModule, FormsModule,
+        ReactiveFormsModule,
       ],
       declarations: [
         AppComponent,

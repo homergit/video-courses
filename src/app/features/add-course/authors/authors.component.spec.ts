@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthorsComponent } from './authors.component';
-import { ReactiveFormsModule, FormsModule, ControlContainer, FormBuilder, FormGroup, FormControl, FormGroupDirective } from '@angular/forms';
+import { ReactiveFormsModule, ControlContainer, FormGroup, FormControl, FormGroupDirective } from '@angular/forms';
 
 describe('AuthorsComponent', () => {
   let component: AuthorsComponent;
@@ -17,13 +17,10 @@ describe('AuthorsComponent', () => {
       declarations: [ AuthorsComponent ],
       imports: [
         ReactiveFormsModule, 
-        //FormsModule,
       ],
       providers: [
         { provide: ControlContainer, useValue: fgd }, 
-        //FormBuilder
       ],
-      
     })
     .compileComponents();
   }));

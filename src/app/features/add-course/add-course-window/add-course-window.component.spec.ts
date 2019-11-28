@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddCourseWindowComponent } from './add-course-window.component';
-import { ControlContainer, ReactiveFormsModule, FormsModule, FormBuilder, FormGroup, FormControl, FormGroupDirective } from '@angular/forms';
+import { ControlContainer, ReactiveFormsModule, FormsModule, FormGroup, FormControl, FormGroupDirective } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CoursesService } from '../../course/courses.service';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AddCourseWindowComponent', () => {
@@ -26,7 +25,7 @@ describe('AddCourseWindowComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        //{ provide: ControlContainer, useValue: fgd }, 
+        { provide: ControlContainer, useValue: fgd }, 
         CoursesService,
         ControlContainer
       ],
