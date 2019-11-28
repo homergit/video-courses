@@ -48,7 +48,6 @@ export class CoursesSectionComponent implements OnInit {
         this.cdr.detectChanges();
       }
     });
-    this.cdr.detectChanges();
   }
 
   loadCourses() {
