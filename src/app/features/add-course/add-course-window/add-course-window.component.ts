@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {Location} from '@angular/common';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -9,7 +9,8 @@ import {CoursesService} from '../../course/courses.service';
 @Component({
   selector: 'app-add-course-window',
   templateUrl: './add-course-window.component.html',
-  styleUrls: ['./add-course-window.component.scss']
+  styleUrls: ['./add-course-window.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCourseWindowComponent implements OnInit {
   course: Course;
@@ -53,7 +54,7 @@ export class AddCourseWindowComponent implements OnInit {
 
   submitCourse() {
     this.course = {
-      id: 12,
+      id: new Date().valueOf(),
       title: this.title,
       creationDate: new Date(),
       duration: this.formValue.duration,

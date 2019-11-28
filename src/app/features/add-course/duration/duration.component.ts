@@ -8,7 +8,7 @@ import {ControlContainer, FormGroup} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DurationComponent implements OnInit {
-  @Input() courseForm: FormGroup;
+  //@Input() courseForm: FormGroup;
   inputValue: number;
 
   constructor(public controlContainer: ControlContainer) { }

@@ -8,7 +8,7 @@ import {ControlContainer, FormGroup} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateComponent implements OnInit {
-  @Input() courseForm: FormGroup;
+  //@Input() courseForm: FormGroup;
   constructor(public controlContainer: ControlContainer) { }
 
   ngOnInit() {

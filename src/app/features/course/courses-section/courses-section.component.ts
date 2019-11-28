@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {Course, DeletedItem} from '../../../core/models/course';
@@ -11,6 +11,7 @@ import {DialogComponent} from '../../../shared/dialog/dialog.component';
   selector: 'app-section',
   templateUrl: './courses-section.component.html',
   styleUrls: ['./courses-section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesSectionComponent implements OnInit {
   coursesToDisplay: Course[] = [];
@@ -24,7 +25,8 @@ export class CoursesSectionComponent implements OnInit {
 
   constructor(
     private coursesService: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef
   ){}
 
   ngOnInit() {
@@ -42,9 +44,11 @@ export class CoursesSectionComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this.courses = this.coursesService.removeItem(course.id);
-        this.coursesToDisplay = this.courses.slice(0, this.numberOfCoursesToLoad);
+        this.coursesToDisplay = this.filterPipe.transform(this.courses, this.term).slice(0, this.numberOfCoursesToLoad);
+        this.cdr.detectChanges();
       }
     });
+    this.cdr.detectChanges();
   }
 
   loadCourses() {
