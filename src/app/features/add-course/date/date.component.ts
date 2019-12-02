@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {ControlContainer, FormGroup} from '@angular/forms';
+import {ControlContainer} from '@angular/forms';
 
 @Component({
   selector: 'app-date',
@@ -8,7 +8,7 @@ import {ControlContainer, FormGroup} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateComponent implements OnInit {
-  //@Input() courseForm: FormGroup;
+  @Input() date: Date;
   constructor(public controlContainer: ControlContainer) { }
 
   ngOnInit() {

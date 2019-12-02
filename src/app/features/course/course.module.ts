@@ -9,13 +9,12 @@ import {PipeModule} from '../../core/pipes/pipe.module';
 import {SearchComponent} from './search/search.component';
 import {CoursesSectionComponent} from './courses-section/courses-section.component';
 import {CourseTileComponent} from './course-tile/course-tile.component';
-import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
 import {DirectiveModule} from '../../core/directives/directive.module';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {CoursesService} from './courses.service';
 
 @NgModule({
-  declarations: [SearchComponent, CoursesSectionComponent, CourseTileComponent, BreadcrumbComponent],
+  declarations: [SearchComponent, CoursesSectionComponent, CourseTileComponent],
   exports: [
     SearchComponent,
     CoursesSectionComponent,

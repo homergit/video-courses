@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 
 import {CoursesSectionComponent} from './courses-section.component';
 import {PipeModule} from '../../../core/pipes/pipe.module';
-import {BreadcrumbComponent} from '../breadcrumb/breadcrumb.component';
+import {BreadcrumbComponent} from '../../../shared/breadcrumb/breadcrumb.component';
 import {SearchComponent} from '../search/search.component';
 import {CourseTileComponent} from '../course-tile/course-tile.component';
 import {DirectiveModule} from '../../../core/directives/directive.module';

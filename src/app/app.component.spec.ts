@@ -3,7 +3,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 
 import {AppComponent} from './app.component';
-import {BreadcrumbComponent} from './features/course/breadcrumb/breadcrumb.component';
+import {BreadcrumbComponent} from './shared/breadcrumb/breadcrumb.component';
 import {SearchComponent} from './features/course/search/search.component';
 import {CourseTileComponent} from './features/course/course-tile/course-tile.component';
 import {CoursesSectionComponent} from './features/course/courses-section/courses-section.component';

@@ -4,12 +4,12 @@
     type="text"
     id="duration"
     name="duration"
+    [(ngModel)]="duration"
     formControlName="duration"
     class="duration__input duration__input_small"
-    (keyup)="handleChange($event)"
   />
 
   <p class="duration__formatted-value">
-    {{ inputValue | hoursMinutes }}
+    {{ duration | hoursMinutes }}
   </p>
 </label>

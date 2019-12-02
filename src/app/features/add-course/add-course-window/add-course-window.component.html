@@ -25,9 +25,9 @@
       ></textarea>
     </label>
 
-    <app-duration [formGroup]="courseForm"></app-duration>
-    <app-date [formGroup]="courseForm"></app-date>
-    <app-authors [formGroup]="courseForm"></app-authors>
+    <app-duration [formGroup]="courseForm" duration="{{duration}}"></app-duration>
+    <app-date [formGroup]="courseForm" date="{{date}}"></app-date>
+    <app-authors [formGroup]="courseForm" author="{{author}}"></app-authors>
 
     <div class="add-course__actions">
       <button
@@ -39,6 +39,7 @@
       </button>
       <button
         (click)="location.back()"
+        type="reset"
         class="add-course__button add-course__button_cancel"
       >
         Cancel

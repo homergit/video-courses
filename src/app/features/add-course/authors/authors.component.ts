@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
 import {ControlContainer} from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import {ControlContainer} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthorsComponent implements OnInit {
+  @Input() author: string;
   constructor(public controlContainer: ControlContainer) {
   }
 
