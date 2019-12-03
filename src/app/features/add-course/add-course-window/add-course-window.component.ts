@@ -101,14 +101,6 @@ export class AddCourseWindowComponent implements OnInit {
     if (this.course.id) {
       this.courseService.updateItem(this.course);
     } else {
-      // this.course = {
-      //   id: new Date().valueOf(),
-      //   title: this.title,
-      //   creationDate: new Date(),
-      //   duration: this.formValue.duration,
-      //   description: this.description,
-      //   isTopRated: false
-      // };
       this.course.id = new Date().valueOf();
       this.course.creationDate = new Date();
       this.course.isTopRated = false;
