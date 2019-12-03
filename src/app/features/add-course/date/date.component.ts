@@ -1,5 +1,6 @@
-import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy, Output, EventEmitter} from '@angular/core';
 import {ControlContainer} from '@angular/forms';
+import {Course} from 'src/app/core/models/course';
 
 @Component({
   selector: 'app-date',
@@ -8,9 +9,16 @@ import {ControlContainer} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DateComponent implements OnInit {
-  @Input() date: Date;
+  @Input() course: Course;
+  @Output() courseDataChanged = new EventEmitter<Course>();
+
   constructor(public controlContainer: ControlContainer) { }
 
   ngOnInit() {
+  }
+
+  handleChange(event) {
+    this.course.creationDate = event.target.value;
+    this.courseDataChanged.emit(this.course);
   }
 }

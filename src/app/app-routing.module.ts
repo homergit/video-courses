@@ -20,18 +20,18 @@ const routes: Routes = [
     data: { breadcrumb: 'Courses' },
     canActivate: [AuthGuard],
     children: [
-      { 
+      {
         path: '',
-        component: CoursesSectionComponent,
+        loadChildren: () => import('./features/course/course.module').then(mod => mod.CourseModule),
       },
       {
         path: 'new',
-        component: AddCourseWindowComponent,
+        loadChildren: () => import('./features/add-course/add-course.module').then(mod => mod.AddCourseModule),
         data: { breadcrumb: 'New' }
       },
       {
         path: ':id',
-        component: AddCourseWindowComponent,
+        loadChildren: () => import('./features/add-course/add-course.module').then(mod => mod.AddCourseModule),
         data: { breadcrumb: '' }
       },
     ]

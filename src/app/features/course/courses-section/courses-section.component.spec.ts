@@ -1,6 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatDialog} from '@angular/material';
 import {FormsModule} from '@angular/forms';
+import {RouterTestingModule} from '@angular/router/testing';
 import { of } from 'rxjs';
 
 import {CoursesSectionComponent} from './courses-section.component';
@@ -24,7 +25,6 @@ describe('SectionComponent', () => {
   let component: CoursesSectionComponent;
   let fixture: ComponentFixture<CoursesSectionComponent>;
   let coursesServiceSpy: jasmine.SpyObj<CoursesService>;
-  let dialog: MatDialog;
   const mockMatDialog = {
     afterClosed: (): void => undefined,
     open: (): void => undefined,
@@ -43,11 +43,12 @@ describe('SectionComponent', () => {
       imports: [
         PipeModule,
         FormsModule,
-        DirectiveModule
+        DirectiveModule,
+        RouterTestingModule
       ],
       providers: [
         {provide: CoursesService, useValue: spy},
-        { provide: MatDialog, useClass: MatDialogMock }
+        {provide: MatDialog, useClass: MatDialogMock}
       ]
     })
       .compileComponents();
@@ -62,7 +63,7 @@ describe('SectionComponent', () => {
   });
 
   it('should set a new term and value for shouldShowLoadMore', () => {
-    let stubValue = [
+    const stubValue = [
       {
         id: 1,
         title: 'Title',
@@ -107,7 +108,7 @@ describe('SectionComponent', () => {
   });
 
   it('should open the dialog', () => {
-    let deletedItem = {
+    const deletedItem = {
       id: 1,
       title: 'Title',
       duration: 123,

@@ -6,7 +6,7 @@
       <input
         type="text"
         id="title"
-        [(ngModel)]="title"
+        [(ngModel)]="course.title"
         formControlName="title"
         class="add-course__input"
         [ngClass]="{ 'is-invalid': f.title.errors }"
@@ -18,15 +18,15 @@
       <textarea
         type="text"
         id="description"
-        [(ngModel)]="description"
+        [(ngModel)]="course.description"
         formControlName="description"
         class="add-course__input add-course__input_textarea"
         [ngClass]="{ 'is-invalid': f.description.errors }"
       ></textarea>
     </label>
 
-    <app-duration [formGroup]="courseForm" duration="{{duration}}"></app-duration>
-    <app-date [formGroup]="courseForm" date="{{date}}"></app-date>
+    <app-duration [formGroup]="courseForm" [(course)]=course></app-duration>
+    <app-date [formGroup]="courseForm" [(course)]=course></app-date>
     <app-authors [formGroup]="courseForm" author="{{author}}"></app-authors>
 
     <div class="add-course__actions">

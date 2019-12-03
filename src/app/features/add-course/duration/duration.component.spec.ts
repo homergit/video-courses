@@ -3,13 +3,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DurationComponent } from './duration.component';
 import { ReactiveFormsModule, FormsModule, ControlContainer, FormGroup, FormControl, FormGroupDirective } from '@angular/forms';
 import { PipeModule } from 'src/app/core/pipes/pipe.module';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DurationComponent', () => {
   let component: DurationComponent;
   let fixture: ComponentFixture<DurationComponent>;
   const fg: FormGroup = new FormGroup({
-    'duration': new FormControl(''),
+    duration: new FormControl(''),
   });
   const fgd: FormGroupDirective = new FormGroupDirective([], []);
   fgd.form = fg;
@@ -23,11 +22,11 @@ describe('DurationComponent', () => {
         PipeModule
       ],
       providers: [
-        { provide: ControlContainer, useValue: fgd },
-      ],
-      schemas: [
-        NO_ERRORS_SCHEMA,
-      ],
+        {
+          provide: ControlContainer,
+          useValue: fgd
+        },
+      ]
     })
     .compileComponents();
   }));

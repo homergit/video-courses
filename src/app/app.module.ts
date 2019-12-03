@@ -1,5 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {MatIconModule, MatDialogModule} from '@angular/material';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -9,9 +12,7 @@ import {SharedModule} from './shared/shared.module';
 import {AddCourseModule} from './features/add-course/add-course.module';
 import {PipeModule} from './core/pipes/pipe.module';
 import {DirectiveModule} from './core/directives/directive.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {MatIconModule, MatDialogModule} from '@angular/material';
+import { AuthGuard } from './core/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import {MatIconModule, MatDialogModule} from '@angular/material';
     MatIconModule,
     MatDialogModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

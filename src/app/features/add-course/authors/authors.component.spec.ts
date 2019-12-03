@@ -7,7 +7,7 @@ describe('AuthorsComponent', () => {
   let component: AuthorsComponent;
   let fixture: ComponentFixture<AuthorsComponent>;
   const fg: FormGroup = new FormGroup({
-    'author': new FormControl(''),
+    author: new FormControl(''),
   });
   const fgd: FormGroupDirective = new FormGroupDirective([], []);
   fgd.form = fg;
@@ -16,10 +16,10 @@ describe('AuthorsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AuthorsComponent ],
       imports: [
-        ReactiveFormsModule, 
+        ReactiveFormsModule,
       ],
       providers: [
-        { provide: ControlContainer, useValue: fgd }, 
+        { provide: ControlContainer, useValue: fgd },
       ],
     })
     .compileComponents();

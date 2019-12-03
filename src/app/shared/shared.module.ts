@@ -22,7 +22,6 @@ import {LoginModule} from '../features/login/login.module';
   ],
   imports: [
     CommonModule,
-    CourseModule,
     LoginModule,
     RouterModule,
     MatDialogModule,

@@ -13,7 +13,14 @@ import {CoursesService} from '../../course/courses.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddCourseWindowComponent implements OnInit {
-  course: Course | null;
+  course: Course = {
+    id: null,
+    title: null,
+    description: null,
+    creationDate: new Date(),
+    duration: null,
+    isTopRated: false
+  };
   formValue: {
     title: string;
     date: string;
@@ -59,13 +66,18 @@ export class AddCourseWindowComponent implements OnInit {
   get f() { return this.courseForm.controls; }
 
   getCourse() {
-    let id = +this.activatedRoute.snapshot.paramMap.get('id');
-    if(id) {
+    const id = +this.activatedRoute.snapshot.paramMap.get('id');
+    if (id) {
       this.course = this.courseService.getItem(id);
-      this.title = this.course.title;
-      this.duration = this.course.duration;
-      this.description = this.course.description;
-      this.date = this.course.creationDate;
+    } else {
+      this.course = {
+        id: null,
+        title: null,
+        description: null,
+        creationDate: new Date(),
+        duration: null,
+        isTopRated: false
+      };
     }
   }
 
@@ -77,30 +89,30 @@ export class AddCourseWindowComponent implements OnInit {
   }
 
   resetForm() {
-      this.title = null;
-      this.duration = null;
-      this.description = null;
-      this.date = null;
-      this.author = null;
+      this.course.title = '';
+      this.course.duration = 0;
+      this.course.description = '';
+      this.course.creationDate = null;
+      this.author = '';
   }
 
   submitCourse() {
     this.cdr.detectChanges();
-    if(this.course) {
-      this.course.title = this.title;
-      this.course.duration = this.duration;
-      this.course.description = this.description;
-        
+    if (this.course.id) {
       this.courseService.updateItem(this.course);
     } else {
-      this.course = {
-        id: new Date().valueOf(),
-        title: this.title,
-        creationDate: new Date(),
-        duration: this.formValue.duration,
-        description: this.description,
-        isTopRated: false
-      };
+      // this.course = {
+      //   id: new Date().valueOf(),
+      //   title: this.title,
+      //   creationDate: new Date(),
+      //   duration: this.formValue.duration,
+      //   description: this.description,
+      //   isTopRated: false
+      // };
+      this.course.id = new Date().valueOf();
+      this.course.creationDate = new Date();
+      this.course.isTopRated = false;
+
       this.courseService.createCourse(this.course);
     }
 

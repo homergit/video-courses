@@ -59,7 +59,7 @@ describe('AuthorizationService', () => {
   it('should return true if user log in system',
     () => {
       expect(service.isAuthenicated()).toEqual(false);
-      localStorage.setItem('personalData-name','name');
+      localStorage.setItem('personalData-name', 'name');
       expect(service.isAuthenicated()).toEqual(true);
     });
 

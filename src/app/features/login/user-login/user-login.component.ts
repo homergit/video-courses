@@ -32,7 +32,7 @@ export class UserLoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   login() {
-    console.log('this.name, this.pass', this.name, this.pass)
+    console.log('this.name, this.pass', this.name, this.pass);
     this.loginService.login(this.name, this.pass);
     this.router.navigate(['/courses']);
   }

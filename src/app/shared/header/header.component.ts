@@ -13,12 +13,12 @@ export class HeaderComponent implements OnInit {
   isAuthorized: boolean;
 
   constructor(
-    private authService: AuthorizationService, 
+    private authService: AuthorizationService,
     private router: Router,
     private cdr: ChangeDetectorRef
     ) {
     router.events.subscribe(() => {
-      this.isAuthorized = this.authService.isAuthenicated(); 
+      this.isAuthorized = this.authService.isAuthenicated();
       this.cdr.detectChanges();
     });
   }
