@@ -3,7 +3,7 @@ import { FilterPipe } from './filter.pipe';
 describe('FilterPipe', () => {
   it('should return empty array if no data entered', () => {
     const pipe = new FilterPipe();
-    let data = [{
+    const data = [{
       id: 1,
       title: 'Title',
       duration: 123,

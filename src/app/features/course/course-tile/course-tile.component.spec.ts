@@ -1,9 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 
 import {CourseTileComponent} from './course-tile.component';
 import {PipeModule} from '../../../core/pipes/pipe.module';
 import {DirectiveModule} from '../../../core/directives/directive.module';
-
 
 describe('CourseTileComponent', () => {
   let component: CourseTileComponent;
@@ -14,7 +14,8 @@ describe('CourseTileComponent', () => {
       declarations: [ CourseTileComponent ],
       imports: [
         PipeModule,
-        DirectiveModule
+        DirectiveModule,
+        RouterTestingModule
       ],
     })
     .compileComponents();

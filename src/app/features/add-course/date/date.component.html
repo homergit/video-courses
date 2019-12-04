@@ -1,10 +1,10 @@
-<label for="date" class="date__label" [formGroup]="controlContainer.control">Date
+<label class="date__label" [formGroup]="controlContainer.control">Date
   <br>
   <input
     type="text"
-    id="date"
-    name="date"
+    value="{{course.creationDate}}"
     formControlName="date"
     class="date__input date__input_small"
+    (keyup)="handleChange($event)"
   />
 </label>

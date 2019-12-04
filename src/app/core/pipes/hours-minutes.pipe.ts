@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class HoursMinutesPipe implements PipeTransform {
   transform(minutes: number): string {
-    if(!minutes) {
+    if (!minutes) {
       return '';
     }
 

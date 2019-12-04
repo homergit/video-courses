@@ -137,11 +137,12 @@ export class CoursesService {
   }
 
   getItem(id: number) {
-    console.log('getItem, id:', id);
+    return this.mockData.filter(item => item.id === id)[0];
   }
 
-  updateItem(id: number) {
-    console.log('updateItem, id:', id);
+  updateItem(data: Course) {
+    const itemId = this.mockData.findIndex(item => item.id === data.id);
+    this.mockData[itemId] = data;
   }
 
   removeItem(id: number): Course[] {

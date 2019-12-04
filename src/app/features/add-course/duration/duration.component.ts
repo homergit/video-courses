@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {ControlContainer, FormGroup} from '@angular/forms';
+import {Component, EventEmitter, Input, OnInit, ChangeDetectionStrategy, Output} from '@angular/core';
+import {ControlContainer} from '@angular/forms';
+import {Course} from 'src/app/core/models/course';
 
 @Component({
   selector: 'app-duration',
@@ -8,8 +9,8 @@ import {ControlContainer, FormGroup} from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DurationComponent implements OnInit {
-  //@Input() courseForm: FormGroup;
-  inputValue: number;
+  @Input() course: Course;
+  @Output() courseDataChanged = new EventEmitter<Course>();
 
   constructor(public controlContainer: ControlContainer) { }
 
@@ -17,7 +18,7 @@ export class DurationComponent implements OnInit {
   }
 
   handleChange(event) {
-    this.inputValue = +event.target.value;
-    console.log('this.inputValue', this.inputValue);
+    this.course.duration = +event.target.value;
+    this.courseDataChanged.emit(this.course);
   }
 }

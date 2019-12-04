@@ -10,8 +10,8 @@ describe('AddCourseWindowComponent', () => {
   let component: AddCourseWindowComponent;
   let fixture: ComponentFixture<AddCourseWindowComponent>;
   const fg: FormGroup = new FormGroup({
-    'title': new FormControl(''),
-    'description': new FormControl(''),
+    title: new FormControl(''),
+    description: new FormControl(''),
   });
   const fgd: FormGroupDirective = new FormGroupDirective([], []);
   fgd.form = fg;
@@ -20,12 +20,15 @@ describe('AddCourseWindowComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ AddCourseWindowComponent ],
       imports: [
-        ReactiveFormsModule, 
+        ReactiveFormsModule,
         FormsModule,
         RouterTestingModule
       ],
       providers: [
-        { provide: ControlContainer, useValue: fgd }, 
+        {
+          provide: ControlContainer,
+          useValue: fgd
+        },
         CoursesService,
         ControlContainer
       ],

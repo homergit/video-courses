@@ -27,7 +27,7 @@ export class CoursesSectionComponent implements OnInit {
     private coursesService: CoursesService,
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef
-  ){}
+  ) {}
 
   ngOnInit() {
     this.courses = this.orderByPipe.transform(this.coursesService.getList());
@@ -42,7 +42,7 @@ export class CoursesSectionComponent implements OnInit {
     });
 
     this.dialogRef.afterClosed().subscribe(result => {
-      if(result) {
+      if (result) {
         this.courses = this.coursesService.removeItem(course.id);
         this.coursesToDisplay = this.filterPipe.transform(this.courses, this.term).slice(0, this.numberOfCoursesToLoad);
         this.cdr.detectChanges();

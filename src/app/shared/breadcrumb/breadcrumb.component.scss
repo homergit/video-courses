@@ -1,0 +1,33 @@
+.breadcrumb {
+  display: flex;
+  background-color: white;
+  padding: 20px 85px;
+
+  &__item {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    color: #868996;
+    text-decoration: none;
+    margin-right: 4px;
+    cursor: pointer;
+
+    &:after {
+      content: '/';
+      display: inline;
+      color: #30b6dd;
+    }
+
+    &:last-child {
+      color: #2c2f3c;
+      cursor: default;
+
+      & .router-link-active:focus {
+        outline: none;
+      }
+
+      &:after {
+        content: '';
+      }
+    }
+  }
+}
