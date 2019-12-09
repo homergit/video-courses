@@ -1,10 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-import {CoursesSectionComponent} from './features/course/courses-section/courses-section.component';
 import {PageNotFoundComponent} from './shared/page-not-found/page-not-found.component';
 import {UserLoginComponent} from './features/login/user-login/user-login.component';
-import {AddCourseWindowComponent} from './features/add-course/add-course-window/add-course-window.component';
 import {AuthGuard} from './core/guards/auth.guard';
 
 const routes: Routes = [

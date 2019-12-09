@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router, ActivatedRoute} from '@angular/router';
 
 import {Course} from '../../../core/models/course';
-import {CoursesService} from '../../course/courses.service';
+import {CoursesService} from '../../../core/services/courses.service';
 
 @Component({
   selector: 'app-add-course-window',
@@ -15,18 +15,17 @@ import {CoursesService} from '../../course/courses.service';
 export class AddCourseWindowComponent implements OnInit {
   course: Course = {
     id: null,
-    title: null,
+    name: null,
     description: null,
-    creationDate: new Date(),
+    date: (new Date()).toString(),
     duration: null,
-    isTopRated: false
-  };
-  formValue: {
-    title: string;
-    date: string;
-    duration: number;
-    description: string;
-    author: string;
+    isTopRated: false,
+    length: null,
+    authors: [{
+      id: null,
+      name: null,
+      lastName: null
+    }]
   };
   title: string;
   date: Date;
@@ -54,13 +53,8 @@ export class AddCourseWindowComponent implements OnInit {
       author: ['', Validators.required]
     });
 
-    this.courseForm.valueChanges.subscribe(value => {
-      this.formValue = value;
-    });
-
     this.getCourse();
     this.checkForm();
-    this.cdr.detectChanges();
   }
 
   get f() { return this.courseForm.controls; }
@@ -68,47 +62,51 @@ export class AddCourseWindowComponent implements OnInit {
   getCourse() {
     const id = +this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.course = this.courseService.getItem(id);
+      this.courseService.getItem(id)
+        .subscribe((data: Course) => this.course = data);
     } else {
-      this.course = {
+      this.course =  {
         id: null,
-        title: null,
+        name: null,
         description: null,
-        creationDate: new Date(),
+        date: null,
         duration: null,
-        isTopRated: false
+        isTopRated: null,
+        length: null,
+        authors: [{
+          id: null,
+          name: null,
+          lastName: null
+        }]
       };
     }
   }
 
   checkForm() {
-    Object.keys(this.courseForm.controls).forEach(field => {
-      const control = this.courseForm.get(field);
-      control.updateValueAndValidity();
-    });
-  }
-
-  resetForm() {
-      this.course.title = '';
-      this.course.duration = 0;
-      this.course.description = '';
-      this.course.creationDate = null;
-      this.author = '';
+    setTimeout(() => {
+      Object.keys(this.courseForm.controls).forEach(field => {
+        const control = this.courseForm.get(field);
+        control.updateValueAndValidity();
+      });
+      this.cdr.detectChanges();
+    }, 0);
   }
 
   submitCourse() {
     this.cdr.detectChanges();
     if (this.course.id) {
-      this.courseService.updateItem(this.course);
+      this.courseService.updateItem(this.course).subscribe(item => console.log(item));
     } else {
-      this.course.id = new Date().valueOf();
-      this.course.creationDate = new Date();
+      const date =  new Date();
+      this.course.id = date.valueOf();
+      this.course.date = date.toString();
       this.course.isTopRated = false;
 
-      this.courseService.createCourse(this.course);
+      this.courseService
+        .createCourse(this.course)
+        .subscribe(item => console.log(item));
     }
 
-    this.resetForm();
     this.router.navigate(['/courses']);
   }
 }

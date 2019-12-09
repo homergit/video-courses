@@ -18,7 +18,7 @@ describe('CoursesService', () => {
   });
 
   it('should return mock data', () => {
-    expect(service.getList()).toEqual(service.mockData);
+    expect(service.getList(0)).toEqual(service.mockData);
   });
 
 });

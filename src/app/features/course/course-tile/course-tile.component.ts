@@ -17,7 +17,7 @@ export class CourseTileComponent {
   deleteRequest() {
     const deletedItem = {
       id: this.course.id,
-      title: this.course.title
+      name: this.course.name
     };
     this.delete.emit(deletedItem);
   }

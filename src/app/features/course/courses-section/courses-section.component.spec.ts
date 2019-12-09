@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MatDialog} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
-import { of } from 'rxjs';
+import {of} from 'rxjs';
 
 import {CoursesSectionComponent} from './courses-section.component';
 import {PipeModule} from '../../../core/pipes/pipe.module';
@@ -10,7 +10,7 @@ import {BreadcrumbComponent} from '../../../shared/breadcrumb/breadcrumb.compone
 import {SearchComponent} from '../search/search.component';
 import {CourseTileComponent} from '../course-tile/course-tile.component';
 import {DirectiveModule} from '../../../core/directives/directive.module';
-import {CoursesService} from '../courses.service';
+import {CoursesService} from '../../../core/services/courses.service';
 
 
 export class MatDialogMock {

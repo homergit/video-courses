@@ -1,7 +1,7 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {User} from '../../../core/models/user';
+import {ActivatedRoute, Router} from '@angular/router';
+import {first} from 'rxjs/operators';
 import {AuthorizationService} from '../../../core/services/authorization.service';
 
 @Component({
@@ -15,12 +15,19 @@ export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
   name: string;
   pass: string;
+  loading = false;
+  submitted = false;
 
   constructor(
-    private loginService: AuthorizationService,
+    private authService: AuthorizationService,
     private formBuilder: FormBuilder,
     private router: Router,
-  ) {}
+    private route: ActivatedRoute,
+  ) {
+    if (this.authService.isAuthenicated) {
+      this.router.navigate(['/']);
+    }
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -29,11 +36,27 @@ export class UserLoginComponent implements OnInit {
     });
   }
 
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   login() {
-    console.log('this.name, this.pass', this.name, this.pass);
-    this.loginService.login(this.name, this.pass);
-    this.router.navigate(['/courses']);
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.submitted = true;
+    this.loading = true;
+    this.authService.login(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log('data: ', data);
+          this.router.navigate(['/']);
+        },
+        error => {
+          this.loading = false;
+          console.log('error: ', error);
+        });
   }
 }

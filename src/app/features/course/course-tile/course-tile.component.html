@@ -1,20 +1,20 @@
 <div
   class="course-tile"
   [class.course-tile_top-rated]="course.isTopRated"
-  [appCourseRelevance]="course.creationDate">
+  [appCourseRelevance]="course.date">
 
   <div class="course-tile__content">
-    <h2 class="course-tile__title">{{course.title | uppercase}}</h2>
+    <h2 class="course-tile__title">{{course.name | uppercase}}</h2>
     <div class="course-tile__top-rated" *ngIf="course.isTopRated">
       <img class="course-tile__icon course-tile__icon_top-rated" alt="icon" src="../../../../assets/images/ic-star.png">
     </div>
     <p class="course-tile__information">
       <img class="course-tile__icon" alt="icon" src="../../../../assets/images/ic-time.svg">
-      {{ course.duration | hoursMinutes }}
+      {{course.length | hoursMinutes}}
     </p>
     <p class="course-tile__information">
       <img class="course-tile__icon" alt="icon" src="../../../../assets/images/ic-calendar.svg">
-      {{course.creationDate | date }}
+      {{course.date | date}}
     </p>
     <p class="course-tile__description">
       {{course.description}}
