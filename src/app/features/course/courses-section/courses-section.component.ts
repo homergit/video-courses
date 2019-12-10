@@ -27,9 +27,7 @@ export class CoursesSectionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    setTimeout(() => {
-      this.getCourses();
-    }, 0);
+    this.getCourses();
   }
 
   getCourses() {
@@ -37,11 +35,10 @@ export class CoursesSectionComponent implements OnInit {
       .subscribe((data: Course[]) => {
         if (Array.isArray(data) && data.length) {
           this.courses = this.courses.concat(data);
-          this.cdr.detectChanges();
         } else {
           this.shouldShowLoadMore = false;
-          this.cdr.detectChanges();
         }
+        this.cdr.detectChanges();
       });
   }
 

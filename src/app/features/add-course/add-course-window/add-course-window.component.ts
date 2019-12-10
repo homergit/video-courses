@@ -1,7 +1,7 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Course} from '../../../core/models/course';
 import {CoursesService} from '../../../core/services/courses.service';
@@ -17,7 +17,7 @@ export class AddCourseWindowComponent implements OnInit {
     id: null,
     name: null,
     description: null,
-    date: (new Date()).toString(),
+    date: null,
     duration: null,
     isTopRated: false,
     length: null,
@@ -54,7 +54,6 @@ export class AddCourseWindowComponent implements OnInit {
     });
 
     this.getCourse();
-    this.checkForm();
   }
 
   get f() { return this.courseForm.controls; }
@@ -62,8 +61,12 @@ export class AddCourseWindowComponent implements OnInit {
   getCourse() {
     const id = +this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.courseService.getItem(id)
-        .subscribe((data: Course) => this.course = data);
+      this.courseService
+        .getItem(id)
+        .subscribe((data: Course) => {
+          this.course = data;
+          this.checkForm();
+        });
     } else {
       this.course =  {
         id: null,
@@ -83,19 +86,18 @@ export class AddCourseWindowComponent implements OnInit {
   }
 
   checkForm() {
-    setTimeout(() => {
-      Object.keys(this.courseForm.controls).forEach(field => {
-        const control = this.courseForm.get(field);
-        control.updateValueAndValidity();
-      });
-      this.cdr.detectChanges();
-    }, 0);
+    Object.keys(this.courseForm.controls).forEach(field => {
+      const control = this.courseForm.get(field);
+      control.updateValueAndValidity();
+    });
+    this.cdr.detectChanges();
   }
 
   submitCourse() {
-    this.cdr.detectChanges();
     if (this.course.id) {
-      this.courseService.updateItem(this.course).subscribe(item => console.log(item));
+      this.courseService
+        .updateItem(this.course)
+        .subscribe(() => this.router.navigate(['/courses']));
     } else {
       const date =  new Date();
       this.course.id = date.valueOf();
@@ -104,9 +106,7 @@ export class AddCourseWindowComponent implements OnInit {
 
       this.courseService
         .createCourse(this.course)
-        .subscribe(item => console.log(item));
+        .subscribe(() => this.router.navigate(['/courses']));
     }
-
-    this.router.navigate(['/courses']);
   }
 }
