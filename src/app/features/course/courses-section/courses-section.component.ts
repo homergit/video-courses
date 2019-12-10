@@ -18,7 +18,7 @@ export class CoursesSectionComponent implements OnInit {
   term: string;
   courses: Course[] = [];
   dialogRef: any;
-  filterPipe = new FilterPipe();
+  //filterPipe = new FilterPipe();
 
   constructor(
     private coursesService: CoursesService,
@@ -64,9 +64,12 @@ export class CoursesSectionComponent implements OnInit {
   }
 
   filterData(term: string) {
-    this.term = term;
+    //this.term = term;
+    if(term.length > 3){
+      this.coursesService.searchCourses(term).subscribe(items => this.courses = items);
+    }
     this.coursesService.searchCourses(term).subscribe(items => this.courses = items);
-    this.courses = this.filterPipe.transform(this.courses, this.term);
+    //this.courses = this.filterPipe.transform(this.courses, this.term);
     this.cdr.detectChanges();
   }
 }

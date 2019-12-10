@@ -48,15 +48,9 @@ export class UserLoginComponent implements OnInit {
     this.submitted = true;
     this.loading = true;
     this.authService.login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          console.log('data: ', data);
-          this.router.navigate(['/']);
-        },
-        error => {
-          this.loading = false;
-          console.log('error: ', error);
-        });
+      // .pipe(first())
+      .subscribe(() => this.router.navigate(['/courses']));
+
+    this.router.navigate(['/courses']);
   }
 }

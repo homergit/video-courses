@@ -8,11 +8,14 @@ export class AuthInterceptor {
   constructor(private auth: AuthorizationService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const authToken = this.auth.getTocken();
-    const authReq = req.clone({
-      headers: req.headers.set('Authorization', authToken)
-    });
+    const isLoginPage = !!req.url.search('login');
+    if (!isLoginPage){
+      const authToken = this.auth.getTocken();
+      req = req.clone({
+        headers: req.headers.set('Authorization', authToken)
+      });
+    }
 
-    return next.handle(authReq);
+    return next.handle(req);
   }
 }
