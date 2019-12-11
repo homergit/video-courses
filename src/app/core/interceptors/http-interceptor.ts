@@ -9,7 +9,7 @@ export class AuthInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const isLoginPage = !!req.url.search('login');
-    if (!isLoginPage){
+    if (!isLoginPage) {
       const authToken = this.auth.getTocken();
       req = req.clone({
         headers: req.headers.set('Authorization', authToken)

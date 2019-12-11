@@ -19,7 +19,6 @@ export class CoursesSectionComponent implements OnInit {
   courses: Course[] = [];
   coursesToDisplay: Course[];
   dialogRef: any;
-  //filterPipe = new FilterPipe();
 
   constructor(
     private coursesService: CoursesService,
@@ -66,7 +65,7 @@ export class CoursesSectionComponent implements OnInit {
   }
 
   filterData(term: string) {
-    if(term.length > 3) {
+    if (term.length > 3) {
       this.coursesService.searchCourses(term).subscribe(items => this.courses = items);
       this.shouldShowLoadMore = false;
     } else if (!term.length) {
