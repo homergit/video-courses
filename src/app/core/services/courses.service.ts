@@ -32,7 +32,7 @@ export class CoursesService {
 
   searchCourses(term: string): Observable<Course[]> {
     term = term.trim();
-    const url = `${this.configUrl}courses?${term}`;
+    const url = `${this.configUrl}courses?textFragment=${term}`;
     const options = term ? { params: new HttpParams().set('name', term) } : {};
 
     return this.http.get<Course[]>(url, options);

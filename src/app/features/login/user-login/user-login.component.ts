@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AuthorizationService} from '../../../core/services/authorization.service';
 
@@ -22,7 +22,6 @@ export class UserLoginComponent implements OnInit {
     private authService: AuthorizationService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute,
   ) {
     if (this.authService.isAuthenicated) {
       this.router.navigate(['/']);
@@ -48,7 +47,7 @@ export class UserLoginComponent implements OnInit {
     this.submitted = true;
     this.loading = true;
     this.authService.login(this.f.username.value, this.f.password.value)
-      // .pipe(first())
+      .pipe(first())
       .subscribe(() => this.router.navigate(['/courses']));
 
     this.router.navigate(['/courses']);

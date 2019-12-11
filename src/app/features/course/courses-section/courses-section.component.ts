@@ -17,6 +17,7 @@ export class CoursesSectionComponent implements OnInit {
   shouldShowLoadMore = true;
   term: string;
   courses: Course[] = [];
+  coursesToDisplay: Course[];
   dialogRef: any;
   //filterPipe = new FilterPipe();
 
@@ -35,6 +36,7 @@ export class CoursesSectionComponent implements OnInit {
       .subscribe((data: Course[]) => {
         if (Array.isArray(data) && data.length) {
           this.courses = this.courses.concat(data);
+          this.coursesToDisplay = this.courses.slice();
         } else {
           this.shouldShowLoadMore = false;
         }
@@ -64,12 +66,14 @@ export class CoursesSectionComponent implements OnInit {
   }
 
   filterData(term: string) {
-    //this.term = term;
-    if(term.length > 3){
+    if(term.length > 3) {
       this.coursesService.searchCourses(term).subscribe(items => this.courses = items);
+      this.shouldShowLoadMore = false;
+    } else if (!term.length) {
+      this.courses = this.coursesToDisplay;
+      this.shouldShowLoadMore = true;
     }
-    this.coursesService.searchCourses(term).subscribe(items => this.courses = items);
-    //this.courses = this.filterPipe.transform(this.courses, this.term);
+
     this.cdr.detectChanges();
   }
 }
