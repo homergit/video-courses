@@ -15,16 +15,13 @@ export class BreadcrumbComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-  ) {
-    this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
-  }
+  ) {}
 
   ngOnInit() {
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(() => {
       this.breadcrumbs = this.buildBreadCrumb(this.activatedRoute.root);
     });
   }
-
 
   buildBreadCrumb(route: ActivatedRoute, url: string = '', breadcrumbs: Breadcrumb[] = []): Breadcrumb[] {
     let label = route.routeConfig && route.routeConfig.data ? route.routeConfig.data.breadcrumb : '';

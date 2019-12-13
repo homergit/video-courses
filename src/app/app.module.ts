@@ -12,7 +12,9 @@ import {SharedModule} from './shared/shared.module';
 import {AddCourseModule} from './features/add-course/add-course.module';
 import {PipeModule} from './core/pipes/pipe.module';
 import {DirectiveModule} from './core/directives/directive.module';
-import { AuthGuard } from './core/guards/auth.guard';
+import {AuthGuard} from './core/guards/auth.guard';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthInterceptor} from './core/interceptors/http-interceptor';
 
 @NgModule({
   declarations: [
@@ -30,10 +32,12 @@ import { AuthGuard } from './core/guards/auth.guard';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule,
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

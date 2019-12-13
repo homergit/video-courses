@@ -1,6 +1,4 @@
 <div class="search">
   <img class="search__icon" alt="icon" src="../../../../assets/images/ic-search.svg">
-  <input class="search__input" type="text" [(ngModel)]="term" placeholder="Type some text">
-  <button class="search__button" (click)="search()">Search</button>
+  <input class="search__input" type="text" (keyup)="search($event.target.value)" placeholder="Type some text">
 </div>
-

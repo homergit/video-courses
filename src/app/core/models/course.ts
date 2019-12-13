@@ -1,13 +1,21 @@
 export interface Course {
   id: number;
-  title: string;
-  creationDate: Date;
+  name: string;
+  date: string;
   duration: number;
   description: string;
   isTopRated: boolean;
+  authors: [
+    {
+      id: number;
+      name: string;
+      lastName: string;
+    }
+  ];
+  length: number;
 }
 
 export interface DeletedItem {
   id: number;
-  title: string;
+  name: string;
 }

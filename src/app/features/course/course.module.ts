@@ -11,7 +11,7 @@ import {CoursesSectionComponent} from './courses-section/courses-section.compone
 import {CourseTileComponent} from './course-tile/course-tile.component';
 import {DirectiveModule} from '../../core/directives/directive.module';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
-import {CoursesService} from './courses.service';
+import {CoursesService} from '../../core/services/courses.service';
 import {SharedModule} from 'src/app/shared/shared.module';
 
 const routes: Routes = [

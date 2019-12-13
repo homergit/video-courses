@@ -18,7 +18,7 @@ export class DateComponent implements OnInit {
   }
 
   handleChange(event) {
-    this.course.creationDate = event.target.value;
+    this.course.date = event.target.value;
     this.courseDataChanged.emit(this.course);
   }
 }

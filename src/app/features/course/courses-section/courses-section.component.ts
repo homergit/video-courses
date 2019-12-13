@@ -1,10 +1,8 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 
 import {Course, DeletedItem} from '../../../core/models/course';
-import {FilterPipe} from '../../../core/pipes/filter.pipe';
-import {OrderByPipe} from '../../../core/pipes/order-by.pipe';
-import {CoursesService} from '../courses.service';
+import {CoursesService} from '../../../core/services/courses.service';
 import {DialogComponent} from '../../../shared/dialog/dialog.component';
 
 @Component({
@@ -14,13 +12,11 @@ import {DialogComponent} from '../../../shared/dialog/dialog.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CoursesSectionComponent implements OnInit {
-  coursesToDisplay: Course[] = [];
   numberOfCoursesToLoad = 0;
   shouldShowLoadMore = true;
   term: string;
-  orderByPipe = new OrderByPipe();
-  filterPipe = new FilterPipe();
-  courses: Course[];
+  courses: Course[] = [];
+  coursesToDisplay: Course[];
   dialogRef: any;
 
   constructor(
@@ -30,39 +26,52 @@ export class CoursesSectionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.courses = this.orderByPipe.transform(this.coursesService.getList());
-    this.loadCourses();
+    this.getCourses();
+  }
+
+  getCourses() {
+    this.coursesService.getList(this.numberOfCoursesToLoad)
+      .subscribe((data: Course[]) => {
+        if (Array.isArray(data) && data.length) {
+          this.courses = this.courses.concat(data);
+          this.coursesToDisplay = this.courses.slice();
+        } else {
+          this.shouldShowLoadMore = false;
+        }
+        this.cdr.detectChanges();
+      });
   }
 
   delete(course: DeletedItem) {
     this.dialogRef = this.dialog.open(DialogComponent, {
       data: {
-        text: course.title
+        text: course.name
       }
     });
 
     this.dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.courses = this.coursesService.removeItem(course.id);
-        this.coursesToDisplay = this.filterPipe.transform(this.courses, this.term).slice(0, this.numberOfCoursesToLoad);
+        this.coursesService.removeItem(course.id).subscribe();
+        this.courses = this.courses.filter(item => item.id !== course.id);
         this.cdr.detectChanges();
       }
     });
   }
 
   loadCourses() {
-    const loadedCourses = this.courses.slice(this.numberOfCoursesToLoad, this.numberOfCoursesToLoad + 5);
-    this.numberOfCoursesToLoad += 5;
-
-    this.coursesToDisplay = this.coursesToDisplay.concat(loadedCourses);
-    this.shouldShowLoadMore = this.numberOfCoursesToLoad <= this.courses.length;
+    this.numberOfCoursesToLoad += 3;
+    this.getCourses();
   }
 
   filterData(term: string) {
-    const filteredCourses = this.filterPipe.transform(this.courses, term);
-    this.term = term;
+    if (term.length > 3) {
+      this.coursesService.searchCourses(term).subscribe(items => this.courses = items);
+      this.shouldShowLoadMore = false;
+    } else if (!term.length) {
+      this.courses = this.coursesToDisplay;
+      this.shouldShowLoadMore = true;
+    }
 
-    this.shouldShowLoadMore = this.numberOfCoursesToLoad <= filteredCourses.length;
-    this.coursesToDisplay = filteredCourses.slice(0, this.numberOfCoursesToLoad);
+    this.cdr.detectChanges();
   }
 }

@@ -6,13 +6,12 @@
       <input
         type="text"
         id="title"
-        [(ngModel)]="course.title"
+        [(ngModel)]="course.name"
         formControlName="title"
         class="add-course__input"
         [ngClass]="{ 'is-invalid': f.title.errors }"
       />
     </label>
-
 
     <label for="description" class="add-course__label">Description
       <textarea

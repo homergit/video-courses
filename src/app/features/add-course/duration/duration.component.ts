@@ -18,7 +18,7 @@ export class DurationComponent implements OnInit {
   }
 
   handleChange(event) {
-    this.course.duration = +event.target.value;
+    this.course.length = +event.target.value;
     this.courseDataChanged.emit(this.course);
   }
 }

@@ -2,13 +2,13 @@
   <br>
   <input
     type="text"
-    value="{{course.duration}}"
+    value="{{course.length}}"
     formControlName="duration"
     class="duration__input duration__input_small"
     (keyup)="handleChange($event)"
   />
 
   <p class="duration__formatted-value">
-    {{ course.duration | hoursMinutes }}
+    {{ course.length | hoursMinutes }}
   </p>
 </label>
