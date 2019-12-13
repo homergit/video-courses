@@ -22,13 +22,13 @@ export class UserLoginComponent implements OnInit {
     private authService: AuthorizationService,
     private formBuilder: FormBuilder,
     private router: Router,
-  ) {
+  ) {}
+
+  ngOnInit() {
     if (this.authService.isAuthenicated) {
       this.router.navigate(['/']);
     }
-  }
 
-  ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -49,7 +49,5 @@ export class UserLoginComponent implements OnInit {
     this.authService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(() => this.router.navigate(['/courses']));
-
-    this.router.navigate(['/courses']);
   }
 }

@@ -42,7 +42,7 @@ export class AuthorizationService {
     return Boolean(user);
   }
 
-  getTocken(): string {
+  getToken(): string {
     const user = localStorage.getItem('currentUser');
     return user;
   }

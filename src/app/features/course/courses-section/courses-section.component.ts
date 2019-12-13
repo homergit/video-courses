@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {MatDialog} from '@angular/material/dialog';
 
 import {Course, DeletedItem} from '../../../core/models/course';
-import {FilterPipe} from '../../../core/pipes/filter.pipe';
 import {CoursesService} from '../../../core/services/courses.service';
 import {DialogComponent} from '../../../shared/dialog/dialog.component';
 

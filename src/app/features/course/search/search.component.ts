@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
 import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +16,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit() {
-    this.searchSubject.pipe(debounceTime(500)).subscribe((searchValue: string) => {
+    this.searchSubject
+      .pipe(debounceTime(500))
+      .pipe(distinctUntilChanged())
+      .subscribe((searchValue: string) => {
       this.filterData.emit(searchValue);
     });
   }
