@@ -25,6 +25,7 @@ $video-course-theme: mat-light-theme($video-course-primary, $video-course-accent
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($video-course-theme);
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 html {
   .mat-dialog-container {
