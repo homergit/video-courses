@@ -64,10 +64,10 @@ export class CoursesSectionComponent implements OnInit {
   }
 
   filterData(term: string) {
-    if (term.length > 3) {
+    if (term) {
       this.coursesService.searchCourses(term).subscribe(items => this.courses = items);
       this.shouldShowLoadMore = false;
-    } else if (!term.length) {
+    } else {
       this.courses = this.coursesToDisplay;
       this.shouldShowLoadMore = true;
     }

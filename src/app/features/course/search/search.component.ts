@@ -1,6 +1,6 @@
-import {Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
-import {Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {Component, EventEmitter, Output, ChangeDetectionStrategy, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
+import {fromEvent} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -8,27 +8,23 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
   styleUrls: ['./search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent implements AfterViewInit {
+  @ViewChild("search", {static: false}) searchInput: ElementRef;
   @Output() filterData = new EventEmitter<string>();
-  private searchSubject: Subject<string> = new Subject();
   term: string;
 
   constructor() {}
 
-  ngOnInit() {
-    this.searchSubject
+  ngAfterViewInit() {
+    fromEvent(this.searchInput.nativeElement, 'keyup')
+      .pipe(filter(item => {
+        const searchLength = item['srcElement'].value.length;
+        return searchLength > 2 || !searchLength
+      }))
       .pipe(debounceTime(500))
       .pipe(distinctUntilChanged())
       .subscribe((searchValue: string) => {
-      this.filterData.emit(searchValue);
-    });
-  }
-
-  search(term: string) {
-    this.searchSubject.next(term);
-  }
-
-  ngOnDestroy() {
-    this.searchSubject.unsubscribe();
+        this.filterData.emit(searchValue['srcElement'].value);
+      })
   }
 }
