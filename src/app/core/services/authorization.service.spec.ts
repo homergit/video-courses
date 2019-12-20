@@ -58,9 +58,9 @@ describe('AuthorizationService', () => {
 
   it('should return true if user log in system',
     () => {
-      expect(service.isAuthenicated()).toEqual(false);
+      expect(service.isAuthenticated()).toEqual(false);
       localStorage.setItem('personalData-name', 'name');
-      expect(service.isAuthenicated()).toEqual(true);
+      expect(service.isAuthenticated()).toEqual(true);
     });
 
   it('should return array with user name and pass',

@@ -25,7 +25,7 @@ export class UserLoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.authService.isAuthenicated) {
+    if (this.authService.isAuthenticated()) {
       this.router.navigate(['/']);
     }
 

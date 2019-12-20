@@ -2,30 +2,29 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {User} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
-  private currentUserSubject: BehaviorSubject<User>;
-  currentUser: Observable<User>;
+  currentUserSubject: BehaviorSubject<string>;
+  currentUser: Observable<string>;
 
   constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<string>(localStorage.getItem('currentUser'));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  get currentUserValue(): User {
-    return this.currentUserSubject.value;
+  get currentUserValue(): Observable<string> {
+    return this.currentUser;
   }
 
   login(name: string, pass: string) {
     return this.http.post<any>(`http://localhost:3004/auth/login`, {login: name, password: pass})
       .pipe(map(user => {
         if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
+          localStorage.setItem('currentUser', user.token);
+          this.currentUserSubject.next(user.token);
         }
 
         return user;
@@ -37,13 +36,17 @@ export class AuthorizationService {
     this.currentUserSubject.next(null);
   }
 
-  isAuthenicated(): boolean {
+  isAuthenticated(): boolean {
     const user = localStorage.getItem('currentUser');
-    return Boolean(user);
+    return !!user;
   }
 
   getToken(): string {
     const user = localStorage.getItem('currentUser');
     return user;
+  }
+
+  getUserInfo(token) {
+    return this.http.post<any>(`http://localhost:3004/auth/userinfo`, {token});
   }
 }

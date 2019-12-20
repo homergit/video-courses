@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {MatIconModule, MatDialogModule} from '@angular/material';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
@@ -15,6 +15,7 @@ import {DirectiveModule} from './core/directives/directive.module';
 import {AuthGuard} from './core/guards/auth.guard';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './core/interceptors/http-interceptor';
+import {LoaderService} from './core/services/loader.service';
 
 @NgModule({
   declarations: [
@@ -34,9 +35,11 @@ import {AuthInterceptor} from './core/interceptors/http-interceptor';
     MatIconModule,
     MatDialogModule,
     HttpClientModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthGuard,
+    LoaderService,
    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
-import {Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
-import {Router} from '@angular/router';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
 import {AuthorizationService} from 'src/app/core/services/authorization.service';
+import {User} from '../../core/models/user';
 
 @Component({
   selector: 'app-header',
@@ -11,25 +12,33 @@ import {AuthorizationService} from 'src/app/core/services/authorization.service'
 })
 export class HeaderComponent implements OnInit {
   isAuthorized: boolean;
+  userToken: string;
+  user: User;
 
   constructor(
     private authService: AuthorizationService,
     private router: Router,
     private cdr: ChangeDetectorRef
-    ) {
-    router.events.subscribe(() => {
-      this.isAuthorized = this.authService.isAuthenicated();
-      this.cdr.detectChanges();
-    });
-  }
+  ) {}
 
   ngOnInit() {
-    this.isAuthorized = this.authService.isAuthenicated();
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        this.userToken = this.authService.getToken();
+        this.isAuthorized = !!this.userToken;
+
+        if (this.isAuthorized) {
+          this.authService.getUserInfo(this.userToken).subscribe(user => {
+            this.user = user;
+            this.cdr.detectChanges();
+          });
+        }
+      }
+    });
   }
 
   logout() {
     this.authService.logout();
-    this.isAuthorized = false;
     this.router.navigate(['login']);
   }
 }

@@ -9,6 +9,10 @@
       <img class="header__icon header__icon_login" alt="icon" src="../../../assets/images/ic-user.svg">
       User login
     </a>
+    <a *ngIf="user && isAuthorized" class="header__icon-link header__icon-link_login" routerLink="/login">
+      <img class="header__icon header__icon_login" alt="icon" src="../../../assets/images/ic-user.svg">
+      Hi,{{user.name.first}}
+    </a>
     <a *ngIf="isAuthorized" class="header__icon-link header__icon-link_login" (click)="logout()">
       <img class="header__icon header__icon_login" alt="icon" src="../../../assets/images/ic-exit.svg">
       Log off

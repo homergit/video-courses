@@ -11,14 +11,24 @@ import {BreadcrumbComponent} from './breadcrumb/breadcrumb.component';
 
 import {CourseModule} from '../features/course/course.module';
 import {LoginModule} from '../features/login/login.module';
+import {LoaderComponent} from './loader/loader.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent, DialogComponent, BreadcrumbComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    PageNotFoundComponent,
+    DialogComponent,
+    BreadcrumbComponent,
+    LoaderComponent
+  ],
   exports: [
     HeaderComponent,
     FooterComponent,
     DialogComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +36,7 @@ import {LoginModule} from '../features/login/login.module';
     RouterModule,
     MatDialogModule,
     MatIconModule,
+    MatProgressSpinnerModule,
   ]
 })
 
