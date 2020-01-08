@@ -17,7 +17,7 @@
         LOAD MORE
       </button>
     </div>
-    <div class="course-section__add-course-tile" *ngIf="!courses.length && !shouldShowLoadMore">
+    <div class="course-section__add-course-tile" *ngIf="courses && !courses.length && !shouldShowLoadMore">
       NO DATA. FEEL FREE TO ADD NEW COURSE
     </div>
   </div>

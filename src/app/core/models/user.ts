@@ -8,3 +8,7 @@ export class User {
   login: string;
   password: string;
 }
+
+export class UserToken {
+  fakeToken: string;
+}

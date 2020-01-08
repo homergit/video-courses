@@ -1,8 +1,11 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {first} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 import {AuthorizationService} from '../../../core/services/authorization.service';
+import {CoursesState, selectAuthState} from '../../../core/store/auth/auth.states';
+import {LogIn} from '../../../core/store/auth/actions/auth.actions';
 
 @Component({
   selector: 'app-user-login',
@@ -17,17 +20,26 @@ export class UserLoginComponent implements OnInit {
   pass: string;
   loading = false;
   submitted = false;
+  getState: Observable<any>;
+  errorMessage: string | null;
 
   constructor(
     private authService: AuthorizationService,
     private formBuilder: FormBuilder,
     private router: Router,
-  ) {}
+    private store: Store<CoursesState>
+  ) {
+    this.getState = this.store.select(selectAuthState);
+  }
 
   ngOnInit() {
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/']);
     }
+
+    this.getState.subscribe((state) => {
+      this.errorMessage = state.errorMessage;
+    });
 
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
@@ -46,8 +58,12 @@ export class UserLoginComponent implements OnInit {
 
     this.submitted = true;
     this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(() => this.router.navigate(['/courses']));
+
+    const credentials = {
+      email: this.f.username.value,
+      password: this.f.password.value
+    };
+
+    this.store.dispatch(new LogIn(credentials));
   }
 }

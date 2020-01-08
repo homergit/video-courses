@@ -1,7 +1,10 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
 import {AuthorizationService} from 'src/app/core/services/authorization.service';
 import {User} from '../../core/models/user';
+import {CoursesState} from '../../core/store/auth/auth.states';
+import {LogOut} from '../../core/store/auth/actions/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +21,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthorizationService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private store: Store<CoursesState>
   ) {}
 
   ngOnInit() {
@@ -38,7 +42,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.store.dispatch(new LogOut());
     this.router.navigate(['login']);
   }
 }

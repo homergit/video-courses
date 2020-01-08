@@ -6,13 +6,34 @@ export interface Course {
   description: string;
   isTopRated: boolean;
   authors: [
-    {
-      id: number;
-      name: string;
-      lastName: string;
-    }
-  ];
+      {
+        id: number;
+        name: string;
+        lastName: string;
+      }
+    ];
   length: number;
+}
+
+export default class CourseMock {
+  static generateMock() {
+    return {
+      id: 0,
+      name: '',
+      date: '',
+      duration: 0,
+      description: '',
+      isTopRated: false,
+      authors: [
+        {
+          id: 0,
+          name: '',
+          lastName: '',
+        }
+      ],
+      length: 0
+    };
+  }
 }
 
 export interface DeletedItem {
