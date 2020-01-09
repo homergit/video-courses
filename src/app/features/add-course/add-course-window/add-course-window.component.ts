@@ -95,7 +95,10 @@ export class AddCourseWindowComponent implements OnInit {
       const control = this.courseForm.get(field);
       control.updateValueAndValidity();
     });
-    this.cdr.detectChanges();
+
+    if (!this.cdr['destroyed']) {
+      this.cdr.detectChanges();
+    }
   }
 
   submitCourse() {

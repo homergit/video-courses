@@ -1,6 +1,7 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnDestroy} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs';
 
 import {Course, DeletedItem} from '../../../core/models/course';
 import {CoursesService} from '../../../core/services/courses.service';
@@ -14,13 +15,15 @@ import {DeleteItem, ListRequest, LoadMoreRequest} from '../../../core/store/cour
   styleUrls: ['./courses-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoursesSectionComponent implements OnInit {
+
+export class CoursesSectionComponent implements OnInit, OnDestroy {
   numberOfCoursesToLoad = 0;
   shouldShowLoadMore: boolean;
   term: string;
   courses: Course[];
   coursesToDisplay: Course[];
   dialogRef: any;
+  getCoursesSubscription: Subscription;
 
   constructor(
     private coursesService: CoursesService,
@@ -30,20 +33,29 @@ export class CoursesSectionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(new ListRequest(0));
-
     this.getCourses();
+
+    if (!this.courses) {
+      this.store.dispatch(new ListRequest(0));
+    }
+  }
+
+  ngOnDestroy() {
+    this.getCoursesSubscription.unsubscribe();
   }
 
   getCourses() {
-    this.store.select(selectCoursesState)
+    this.getCoursesSubscription = this.store.select(selectCoursesState)
       .subscribe((data) => {
         if (data.courses) {
-          this.shouldShowLoadMore = data.isDataAvailable;
+          this.shouldShowLoadMore = !this.courses || (data.courses.length - this.courses.length) === 3;
           this.courses = data.courses;
           this.coursesToDisplay = this.courses.slice();
         }
-        this.cdr.detectChanges();
+
+        if (!this.cdr['destroyed']) {
+          this.cdr.detectChanges();
+        }
       });
   }
 
