@@ -91,12 +91,13 @@ export class AddCourseWindowComponent implements OnInit {
   }
 
   checkForm() {
+    const key = 'destroyed';
     Object.keys(this.courseForm.controls).forEach(field => {
       const control = this.courseForm.get(field);
       control.updateValueAndValidity();
     });
 
-    if (!this.cdr['destroyed']) {
+    if (!this.cdr[key]) {
       this.cdr.detectChanges();
     }
   }

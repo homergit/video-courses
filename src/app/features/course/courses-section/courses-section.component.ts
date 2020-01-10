@@ -33,11 +33,8 @@ export class CoursesSectionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(new ListRequest(this.numberOfCoursesToLoad));
     this.getCourses();
-
-    if (!this.courses) {
-      this.store.dispatch(new ListRequest(0));
-    }
   }
 
   ngOnDestroy() {
@@ -48,7 +45,7 @@ export class CoursesSectionComponent implements OnInit, OnDestroy {
     this.getCoursesSubscription = this.store.select(selectCoursesState)
       .subscribe((data) => {
         if (data.courses) {
-          this.shouldShowLoadMore = !this.courses || (data.courses.length - this.courses.length) === 3;
+          this.shouldShowLoadMore = !this.courses || (this.numberOfCoursesToLoad - data.courses.length) < 3;
           this.courses = data.courses;
           this.coursesToDisplay = this.courses.slice();
         }
