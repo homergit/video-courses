@@ -1,9 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, OnDestroy} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs';
 
 import {Course, DeletedItem} from '../../../core/models/course';
 import {CoursesService} from '../../../core/services/courses.service';
 import {DialogComponent} from '../../../shared/dialog/dialog.component';
+import {AppState, selectCoursesState} from '../../../core/store/app.states';
+import {DeleteItem, ListRequest, LoadMoreRequest} from '../../../core/store/courses/actions/courses.actions';
 
 @Component({
   selector: 'app-section',
@@ -11,34 +15,44 @@ import {DialogComponent} from '../../../shared/dialog/dialog.component';
   styleUrls: ['./courses-section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoursesSectionComponent implements OnInit {
+
+export class CoursesSectionComponent implements OnInit, OnDestroy {
   numberOfCoursesToLoad = 0;
-  shouldShowLoadMore = true;
+  shouldShowLoadMore: boolean;
   term: string;
-  courses: Course[] = [];
+  courses: Course[];
   coursesToDisplay: Course[];
   dialogRef: any;
+  getCoursesSubscription: Subscription;
 
   constructor(
     private coursesService: CoursesService,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(new ListRequest(this.numberOfCoursesToLoad));
     this.getCourses();
   }
 
+  ngOnDestroy() {
+    this.getCoursesSubscription.unsubscribe();
+  }
+
   getCourses() {
-    this.coursesService.getList(this.numberOfCoursesToLoad)
-      .subscribe((data: Course[]) => {
-        if (Array.isArray(data) && data.length) {
-          this.courses = this.courses.concat(data);
+    this.getCoursesSubscription = this.store.select(selectCoursesState)
+      .subscribe((data) => {
+        if (data.courses) {
+          this.shouldShowLoadMore = !this.courses || (this.numberOfCoursesToLoad - data.courses.length) < 3;
+          this.courses = data.courses;
           this.coursesToDisplay = this.courses.slice();
-        } else {
-          this.shouldShowLoadMore = false;
         }
-        this.cdr.detectChanges();
+
+        if (!this.cdr['destroyed']) {
+          this.cdr.detectChanges();
+        }
       });
   }
 
@@ -51,8 +65,7 @@ export class CoursesSectionComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.coursesService.removeItem(course.id).subscribe();
-        this.courses = this.courses.filter(item => item.id !== course.id);
+        this.store.dispatch(new DeleteItem(course.id));
         this.cdr.detectChanges();
       }
     });
@@ -60,7 +73,7 @@ export class CoursesSectionComponent implements OnInit {
 
   loadCourses() {
     this.numberOfCoursesToLoad += 3;
-    this.getCourses();
+    this.store.dispatch(new LoadMoreRequest(this.numberOfCoursesToLoad));
   }
 
   filterData(term: string) {

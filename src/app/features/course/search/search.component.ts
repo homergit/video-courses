@@ -9,22 +9,23 @@ import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchComponent implements AfterViewInit {
-  @ViewChild("search", {static: false}) searchInput: ElementRef;
+  @ViewChild('search', {static: false}) searchInput: ElementRef;
   @Output() filterData = new EventEmitter<string>();
   term: string;
 
   constructor() {}
 
   ngAfterViewInit() {
+    const key = 'srcElement';
     fromEvent(this.searchInput.nativeElement, 'keyup')
       .pipe(filter(item => {
-        const searchLength = item['srcElement'].value.length;
-        return searchLength > 2 || !searchLength
+        const searchLength = item[key].value.length;
+        return searchLength > 2 || !searchLength;
       }))
       .pipe(debounceTime(500))
       .pipe(distinctUntilChanged())
       .subscribe((searchValue: string) => {
-        this.filterData.emit(searchValue['srcElement'].value);
-      })
+        this.filterData.emit(searchValue[key].value);
+      });
   }
 }

@@ -2,6 +2,9 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {Location} from '@angular/common';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {AppState, selectCourseFormState} from '../../../core/store/app.states';
+import {GetData, SaveData} from '../../../core/store/course-form/actions/course-form.actions';
 
 import {Course} from '../../../core/models/course';
 import {CoursesService} from '../../../core/services/courses.service';
@@ -40,13 +43,14 @@ export class AddCourseWindowComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public location: Location,
+    private store: Store<AppState>,
     private cdr: ChangeDetectorRef
   ) {
   }
 
   ngOnInit() {
     this.courseForm = this.formBuilder.group({
-      title: ['', Validators.required],
+      name: ['', Validators.required],
       description: ['', Validators.required],
       date: ['', Validators.required],
       duration: ['', Validators.required],
@@ -61,12 +65,13 @@ export class AddCourseWindowComponent implements OnInit {
   getCourse() {
     const id = +this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.courseService
-        .getItem(id)
-        .subscribe((data: Course) => {
-          this.course = data;
+      this.store.dispatch(new GetData(id));
+      this.store.select(selectCourseFormState).subscribe(data => {
+        if (data.course) {
+          this.course = data.course;
           this.checkForm();
-        });
+        }
+      });
     } else {
       this.course =  {
         id: null,
@@ -86,27 +91,23 @@ export class AddCourseWindowComponent implements OnInit {
   }
 
   checkForm() {
+    const key = 'destroyed';
     Object.keys(this.courseForm.controls).forEach(field => {
       const control = this.courseForm.get(field);
       control.updateValueAndValidity();
     });
-    this.cdr.detectChanges();
+
+    if (!this.cdr[key]) {
+      this.cdr.detectChanges();
+    }
   }
 
   submitCourse() {
-    if (this.course.id) {
-      this.courseService
-        .updateItem(this.course)
-        .subscribe(() => this.router.navigate(['/courses']));
-    } else {
+    if (!this.course.id) {
       const date =  new Date();
-      this.course.id = date.valueOf();
-      this.course.date = date.toString();
-      this.course.isTopRated = false;
-
-      this.courseService
-        .createCourse(this.course)
-        .subscribe(() => this.router.navigate(['/courses']));
+      this.courseForm.value.date = date.toString();
     }
+
+    this.store.dispatch(new SaveData({value: this.courseForm.value, id: this.course.id}));
   }
 }

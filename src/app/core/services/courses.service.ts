@@ -20,7 +20,12 @@ export class CoursesService {
     return this.http.get(url);
   }
 
-  createCourse(item: Course): Observable<Course> {
+  createCourse(item: Course, id: number): Observable<Course> {
+    if (id) {
+      item.id = id;
+      return this.updateItem(item);
+    }
+
     const url = `${this.configUrl}courses`;
     return this.http.post<Course>(url, item, this.httpOptions);
   }

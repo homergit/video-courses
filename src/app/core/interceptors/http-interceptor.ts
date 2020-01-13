@@ -26,6 +26,6 @@ export class AuthInterceptor {
     }
 
     return next.handle(req)
-      .pipe(finalize(() => setTimeout(() => this.loaderService.hide(), 2000)));
+      .pipe(finalize(() => this.loaderService.hide()));
   }
 }
