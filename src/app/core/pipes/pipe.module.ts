@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {HoursMinutesPipe} from './hours-minutes.pipe';
 import {FilterPipe} from './filter.pipe';
 import {OrderByPipe} from './order-by.pipe';
@@ -15,7 +15,8 @@ import {OrderByPipe} from './order-by.pipe';
     HoursMinutesPipe,
     FilterPipe,
     OrderByPipe
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class PipeModule {
 }

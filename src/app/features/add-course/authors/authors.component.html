@@ -1,11 +1,27 @@
-<label for="author" class="author__label" [formGroup]="controlContainer.control">Author
-  <br>
-  <input
-    type="text"
-    id="author"
-    name="author"
-    value="{{author}}"
-    formControlName="author"
-    class="author__input"
-  />
-</label>
+<mat-form-field class="example-chip-list">
+  <mat-chip-list #chipList aria-label="author selection">
+    <mat-chip
+      *ngFor="let author of course.authors"
+      [selectable]="selectable"
+      [removable]="removable"
+      (removed)="remove(author)">
+      {{author.name + ' ' + author.lastName}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input
+      placeholder="New author..."
+      [formControl]="authorCtrl"
+      #authorInput
+      id="author"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="addOnBlur"
+      (matChipInputTokenEnd)="addAuthor($event)">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let author of filteredAuthors | async" [value]="author">
+      {{author}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

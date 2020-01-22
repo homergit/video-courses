@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -34,7 +34,6 @@ export class AddCourseWindowComponent implements OnInit {
   date: Date;
   duration: number;
   description: string;
-  author: string;
   courseForm: FormGroup;
 
   constructor(
@@ -43,18 +42,17 @@ export class AddCourseWindowComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public location: Location,
-    private store: Store<AppState>,
-    private cdr: ChangeDetectorRef
+    private store: Store<AppState>
   ) {
   }
 
   ngOnInit() {
     this.courseForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      date: ['', Validators.required],
-      duration: ['', Validators.required],
-      author: ['', Validators.required]
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(500)]],
+      date: ['', [Validators.required]],
+      length: ['', [Validators.required]],
+      authors: [this.course.authors[0].name, [Validators.required]]
     });
 
     this.getCourse();
@@ -69,7 +67,12 @@ export class AddCourseWindowComponent implements OnInit {
       this.store.select(selectCourseFormState).subscribe(data => {
         if (data.course) {
           this.course = data.course;
-          this.checkForm();
+
+          this.courseForm.controls.name.patchValue(this.course.name);
+          this.courseForm.controls.description.patchValue(this.course.description);
+          this.courseForm.controls.date.patchValue(this.course.date);
+          this.courseForm.controls.length.patchValue(this.course.length);
+          this.courseForm.controls.authors.patchValue(this.course.authors);
         }
       });
     } else {
@@ -81,24 +84,8 @@ export class AddCourseWindowComponent implements OnInit {
         duration: null,
         isTopRated: null,
         length: null,
-        authors: [{
-          id: null,
-          name: null,
-          lastName: null
-        }]
+        authors: null
       };
-    }
-  }
-
-  checkForm() {
-    const key = 'destroyed';
-    Object.keys(this.courseForm.controls).forEach(field => {
-      const control = this.courseForm.get(field);
-      control.updateValueAndValidity();
-    });
-
-    if (!this.cdr[key]) {
-      this.cdr.detectChanges();
     }
   }
 

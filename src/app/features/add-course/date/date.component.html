@@ -1,10 +1,11 @@
 <label class="date__label" [formGroup]="controlContainer.control">Date
   <br>
   <input
-    type="text"
-    value="{{course.date}}"
+    type="date"
+    min="2012-01-01" max="2021-01-01"
+    value="{{course.date | date:'yyyy-MM-dd'}}"
     formControlName="date"
     class="date__input date__input_small"
-    (keyup)="handleChange($event)"
+    (onChange)="handleChange($event)"
   />
 </label>

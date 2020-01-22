@@ -1,9 +1,10 @@
 <label class="duration__label" [formGroup]="controlContainer.control">Duration
   <br>
   <input
-    type="text"
+    type="number"
+    min="0"
     value="{{course.length}}"
-    formControlName="duration"
+    formControlName="length"
     class="duration__input duration__input_small"
     (keyup)="handleChange($event)"
   />
