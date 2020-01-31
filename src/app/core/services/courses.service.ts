@@ -35,6 +35,11 @@ export class CoursesService {
     return this.http.get(url);
   }
 
+  getAuthors() {
+    const url = `${this.configUrl}authors`;
+    return this.http.get(url);
+  }
+
   searchCourses(term: string): Observable<Course[]> {
     term = term.trim();
     const url = `${this.configUrl}courses?textFragment=${term}`;

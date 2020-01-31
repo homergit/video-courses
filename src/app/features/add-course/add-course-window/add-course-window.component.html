@@ -1,32 +1,32 @@
 <div class="add-course">
   <h1 class="add-course__title">New Course</h1>
 
-  <form [formGroup]="courseForm" #registerForm="ngForm" (ngSubmit)="submitCourse()" class="add-course__form">
+  <form [formGroup]="courseForm" (ngSubmit)="submitCourse()" class="add-course__form">
     <label for="name" class="add-course__label">Title
       <input
         type="text"
         id="name"
-        [(ngModel)]="course.name"
         formControlName="name"
         class="add-course__input"
-        [ngClass]="{ 'is-invalid': f.name.errors }"
+        [ngClass]="f.name.errors"
       />
+      <p *ngIf="f.name.errors?.maxlength"> title max length = 50</p>
     </label>
 
     <label for="description" class="add-course__label">Description
       <textarea
         type="text"
         id="description"
-        [(ngModel)]="course.description"
         formControlName="description"
         class="add-course__input add-course__input_textarea"
         [ngClass]="{ 'is-invalid': f.description.errors }"
       ></textarea>
+      <p *ngIf="f.description.errors?.maxlength"> description max length = 500</p>
     </label>
 
     <app-duration [formGroup]="courseForm" [(course)]=course></app-duration>
     <app-date [formGroup]="courseForm" [(course)]=course></app-date>
-    <app-authors [formGroup]="courseForm" author="{{author}}"></app-authors>
+    <app-authors [(course)]=course formControlName="authors"></app-authors>
 
     <div class="add-course__actions">
       <button

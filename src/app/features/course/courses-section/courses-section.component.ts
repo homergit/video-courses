@@ -44,13 +44,15 @@ export class CoursesSectionComponent implements OnInit, OnDestroy {
   getCourses() {
     this.getCoursesSubscription = this.store.select(selectCoursesState)
       .subscribe((data) => {
+        const key = 'destroyed';
+
         if (data.courses) {
           this.shouldShowLoadMore = !this.courses || (this.numberOfCoursesToLoad - data.courses.length) < 3;
           this.courses = data.courses;
           this.coursesToDisplay = this.courses.slice();
         }
 
-        if (!this.cdr['destroyed']) {
+        if (!this.cdr[key]) {
           this.cdr.detectChanges();
         }
       });
