@@ -1,7 +1,7 @@
 <div class="add-course">
   <h1 class="add-course__title">New Course</h1>
 
-  <form [formGroup]="courseForm" #registerForm="ngForm" (ngSubmit)="submitCourse()" class="add-course__form">
+  <form [formGroup]="courseForm" (ngSubmit)="submitCourse()" class="add-course__form">
     <label for="name" class="add-course__label">Title
       <input
         type="text"

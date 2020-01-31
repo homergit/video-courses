@@ -85,7 +85,7 @@ export class AuthorsComponent implements OnInit, ControlValueAccessor {
 
   addAuthor(event: MatChipInputEvent): void {
     if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
+      event.input.value = '';
       const value = event.value.split(' ');
 
       if ((value[0] || '')) {
@@ -102,12 +102,6 @@ export class AuthorsComponent implements OnInit, ControlValueAccessor {
         this.onTouched(this.course.authors);
         this.cdr.markForCheck();
       }
-
-      if (input) {
-        input.value = '';
-      }
-
-      this.authorCtrl.setValue(null);
     }
   }
 
@@ -119,9 +113,6 @@ export class AuthorsComponent implements OnInit, ControlValueAccessor {
     }
 
     this.courseDataChanged.emit(this.course);
-    this.onChange(this.course.authors);
-    this.onTouched(this.course.authors);
-    this.cdr.markForCheck();
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -134,9 +125,6 @@ export class AuthorsComponent implements OnInit, ControlValueAccessor {
     }
 
     this.courseDataChanged.emit(this.course);
-    this.onChange(this.course.authors);
-    this.onTouched(this.course.authors);
-    this.cdr.markForCheck();
   }
 
   private filterAuthors(value: string): string[] {

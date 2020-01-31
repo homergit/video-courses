@@ -75,26 +75,10 @@ export class AddCourseWindowComponent implements OnInit {
           this.courseForm.controls.authors.patchValue(this.course.authors);
         }
       });
-    } else {
-      this.course =  {
-        id: null,
-        name: null,
-        description: null,
-        date: null,
-        duration: null,
-        isTopRated: null,
-        length: null,
-        authors: null
-      };
     }
   }
 
   submitCourse() {
-    if (!this.course.id) {
-      const date =  new Date();
-      this.courseForm.value.date = date.toString();
-    }
-
     this.store.dispatch(new SaveData({value: this.courseForm.value, id: this.course.id}));
   }
 }

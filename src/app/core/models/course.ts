@@ -15,27 +15,6 @@ export interface Course {
   length: number;
 }
 
-export default class CourseMock {
-  static generateMock() {
-    return {
-      id: 0,
-      name: '',
-      date: '',
-      duration: 0,
-      description: '',
-      isTopRated: false,
-      authors: [
-        {
-          id: 0,
-          name: '',
-          lastName: '',
-        }
-      ],
-      length: 0
-    };
-  }
-}
-
 export interface DeletedItem {
   id: number;
   name: string;
